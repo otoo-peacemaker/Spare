@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.peacemaker.android.spare.ui.onboarding.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_landingPageFragment"
+            app:destination="@id/landingPageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/landingPageFragment"
+        android:name="com.peacemaker.android.spare.ui.onboarding.LandingPageFragment"
+        android:label=""
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landingPageFragment_to_authentication_nav_graph"
+            app:destination="@id/authentication_nav_graph" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/authentication_nav_graph"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.LoginFragment"
+            android:label=""
+            tools:layout="@layout/fragment_login" >
+            <action
+                android:id="@+id/action_loginFragment_to_registrationFragment"
+                app:destination="@id/registrationFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_bottomNavGraph"
+                app:destination="@id/bottom_nav_graph" />
+
+        </fragment>
+        <fragment
+            android:id="@+id/registrationFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.RegistrationFragment"
+            android:label=""
+            tools:layout="@layout/fragment_registration" >
+            <action
+                android:id="@+id/action_registrationFragment_to_verifyAccountFragment"
+                app:destination="@id/verifyAccountFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/verifyAccountFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.VerifyAccountFragment"
+            android:label=""
+            tools:layout="@layout/fragment_verify_account" />
+        <action
+            android:id="@+id/action_global_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </navigation>
+
+    <navigation
+        android:id="@+id/bottom_nav_graph"
+        app:startDestination="@id/navigation_home">
+        <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.peacemaker.android.spare.ui.home.HomeFragment"
+            android:label="@string/title_home"
+            tools:layout="@layout/fragment_home" />
+
+        <fragment
+            android:id="@+id/navigation_dashboard"
+            android:name="com.peacemaker.android.spare.ui.dashboard.DashboardFragment"
+            android:label="@string/title_dashboard"
+            tools:layout="@layout/fragment_dashboard" />
+
+        <fragment
+            android:id="@+id/navigation_notifications"
+            android:name="com.peacemaker.android.spare.ui.notifications.NotificationsFragment"
+            android:label="@string/title_notifications"
+            tools:layout="@layout/fragment_notifications" />
+    </navigation>
+
+</navigation>

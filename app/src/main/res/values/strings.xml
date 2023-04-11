@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Spare</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="spare">Spare</string>
+    <string name="spend_save_with_spare"><![CDATA[Spend & Save With Spare]]></string>
+    <string name="with_spare_you_can_for_bills_food_entertainment_utilities_and_still_save">With spare, you can for bills, food, entertainment, utilities and still save</string>
+    <string name="get_started">Get started</string>
+    <string name="username">Username</string>
+    <string name="welcome_back">Welcome back,</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="forget_your_password">Forget your password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="hope_you_are_doing_great">Hope you are doing great?</string>
+    <string name="first_name">First name</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign in</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="last_name">Last name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="continue_with_google">Continue with google</string>
+</resources>
