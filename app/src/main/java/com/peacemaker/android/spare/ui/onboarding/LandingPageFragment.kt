@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentLandingPageBinding
 import com.peacemaker.android.spare.ui.util.BaseFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class LandingPageFragment : BaseFragment() {
     private var _binding: FragmentLandingPageBinding? = null
@@ -19,14 +21,12 @@ class LandingPageFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View {
         _binding = FragmentLandingPageBinding.inflate(inflater, container, false)
 
+        showLoadingScreen(false)
         binding.button.setOnClickListener {
-            showLoadingScreen(true)
             findNavController().navigate(R.id.action_landingPageFragment_to_authentication_nav_graph)
-            showLoadingScreen(false)
         }
         return binding.root
     }

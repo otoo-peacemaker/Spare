@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
      lateinit var binding: ActivityMainBinding
 
-    private val barMenuItems = setOf(R.id.landingPageFragment, R.id.navigation_dashboard, R.id.navigation_notifications)
+    private val barMenuItems = setOf(R.id.landingPageFragment, R.id.navigation_home)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,12 +36,17 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (
                 destination.id == R.id.navigation_home
-                || destination.id == R.id.navigation_dashboard
-                || destination.id == R.id.navigation_notifications) {
+                || destination.id == R.id.navigation_wallet
+                || destination.id == R.id.navigation_chat
+                || destination.id == R.id.navigation_profile) {
                 // do something when the user navigates to my_destination_fragment
                 binding.navView.visibility = View.VISIBLE
+                binding.bottomAppBar.visibility = View.VISIBLE
+                binding.fab.visibility = View.VISIBLE
             } else{
                 binding.navView.visibility = View.GONE
+                binding.bottomAppBar.visibility = View.GONE
+                binding.fab.visibility = View.GONE
             }
         }
 
@@ -51,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     //Using NavigationUI to configure Bottom Navigation
     private fun setupBottomNavMenu(navController: NavController) {
         val bottomNav: BottomNavigationView = binding.navView
+        bottomNav.background = null
         bottomNav.setupWithNavController(navController)
     }
 
