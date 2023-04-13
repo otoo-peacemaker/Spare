@@ -11,7 +11,7 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:text="@string/create_an_account"
         android:textColor="@color/md_theme_light_onBackground"
         android:textSize="24sp"
@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         app:startIconDrawable="@drawable/baseline_person_outline">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_onPrimary"
             android:hint="@string/first_name" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lastNameL"
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
         app:startIconDrawable="@drawable/baseline_person_outline">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lastName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_onPrimary"
@@ -61,12 +62,12 @@
         app:layout_constraintTop_toBottomOf="@+id/lastNameL"
         app:startIconDrawable="@drawable/outline_phone_24">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phoneNum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_onPrimary"
             android:hint="@string/phone_number" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailL"
         android:layout_width="match_parent"
@@ -77,12 +78,12 @@
         app:startIconDrawable="@drawable/outline_alternate_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_onPrimary"
             android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordL"
         android:layout_width="match_parent"
@@ -94,12 +95,12 @@
         app:startIconDrawable="@drawable/outline_lock">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/md_theme_light_onPrimary"
             android:hint="Password" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register"
         style="@style/Widget.Material3.Button.ElevatedButton"
@@ -117,7 +118,6 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordL" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/continueWithGoogle"
         style="@style/Widget.Material3.Button.IconButton.Outlined"

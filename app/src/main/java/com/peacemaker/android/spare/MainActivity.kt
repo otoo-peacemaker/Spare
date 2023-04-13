@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
 import com.peacemaker.android.spare.databinding.ActivityMainBinding
 
 
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         setupBottomNavMenu(navController)
-        binding.toolbar.setNavigationIcon(R.drawable.navigate_up)
-        setSupportActionBar(binding.toolbar)
+       // binding.toolbar.setNavigationIcon(R.drawable.navigate_up)
+        //setSupportActionBar(binding.toolbar)
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 binding.navView.visibility = View.GONE
             }
         }
+        FirebaseApp.initializeApp(this)
     }
 
     //Using NavigationUI to configure Bottom Navigation
@@ -73,9 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onBackPress(){
         val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                binding.navView.visibility = View.GONE
-            }
+            override fun handleOnBackPressed() { binding.navView.visibility = View.GONE }
         }
         this.onBackPressedDispatcher.addCallback(this, callback)
     }

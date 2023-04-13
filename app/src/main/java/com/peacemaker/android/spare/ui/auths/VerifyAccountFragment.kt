@@ -14,7 +14,7 @@ class VerifyAccountFragment : Fragment() {
         fun newInstance() = VerifyAccountFragment()
     }
 
-    private lateinit var viewModel: VerifyAccountViewModel
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class VerifyAccountFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(VerifyAccountViewModel::class.java)
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
         // TODO: Use the ViewModel
     }
 

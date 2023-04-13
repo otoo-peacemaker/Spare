@@ -1,5 +1,6 @@
 package com.peacemaker.android.spare.ui.onboarding
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.R
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenFragment : Fragment() {
 
     companion object {

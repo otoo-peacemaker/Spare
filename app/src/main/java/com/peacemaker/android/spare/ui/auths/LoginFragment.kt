@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentLandingPageBinding
 import com.peacemaker.android.spare.databinding.FragmentLoginBinding
+import com.peacemaker.android.spare.ui.util.Status
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -19,7 +21,7 @@ class LoginFragment : Fragment() {
         fun newInstance() = LoginFragment()
     }
 
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +33,40 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        binding.login.setOnClickListener {
-            findNavController().navigate(R.id.action_global_bottom_nav_graph)
-        }
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        setOnClickListeners()
 
+        viewModel.signInLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    // User signed in successfully
+                    findNavController().navigate(R.id.action_global_bottom_nav_graph)
+                }
+                Status.ERROR -> {
+                    // Handle error
+                    Toast.makeText(requireContext(),resource.message,Toast.LENGTH_LONG).show()
+                }
+                Status.LOADING -> {
+                    // Show loading progress
+                }
+            }
+        }
+    }
+
+    fun setOnClickListeners(){
+        binding.login.setOnClickListener {
+            signIn()
+        }
         binding.signUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+        }
+    }
+
+    private fun signIn(){
+        with(binding){
+            val email = email.text.toString()
+            val password = password.text.toString()
+            viewModel.signIn(email,password)
         }
     }
 
