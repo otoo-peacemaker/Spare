@@ -24,4 +24,7 @@
     <string name="last_name">Last name</string>
     <string name="phone_number">Phone number</string>
     <string name="continue_with_google">Continue with google</string>
+    <string name="wallet">Wallet</string>
+    <string name="chat">Chat</string>
+    <string name="profile">Profile</string>
 </resources>
