@@ -12,9 +12,12 @@ import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentLandingPageBinding
 import com.peacemaker.android.spare.databinding.FragmentLoginBinding
+import com.peacemaker.android.spare.ui.util.BaseFragment
 import com.peacemaker.android.spare.ui.util.Status
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     companion object {
@@ -41,19 +44,26 @@ class LoginFragment : Fragment() {
                 Status.SUCCESS -> {
                     // User signed in successfully
                     findNavController().navigate(R.id.action_global_bottom_nav_graph)
+                    runBlocking {
+                        delay(2000)
+                        showLoadingScreen(false)
+                    }
+
                 }
                 Status.ERROR -> {
                     // Handle error
+                   showLoadingScreen(false)
                     Toast.makeText(requireContext(),resource.message,Toast.LENGTH_LONG).show()
                 }
                 Status.LOADING -> {
                     // Show loading progress
+                  showLoadingScreen(true)
                 }
             }
         }
     }
 
-    fun setOnClickListeners(){
+    private fun setOnClickListeners(){
         binding.login.setOnClickListener {
             signIn()
         }

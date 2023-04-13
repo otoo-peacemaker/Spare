@@ -50,6 +50,9 @@
             <action
                 android:id="@+id/action_registrationFragment_to_verifyAccountFragment"
                 app:destination="@id/verifyAccountFragment" />
+            <action
+                android:id="@+id/action_registrationFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
         </fragment>
         <fragment
             android:id="@+id/verifyAccountFragment"

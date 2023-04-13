@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentLandingPageBinding
+import com.peacemaker.android.spare.ui.util.BaseFragment
 
-class LandingPageFragment : Fragment() {
+class LandingPageFragment : BaseFragment() {
     private var _binding: FragmentLandingPageBinding? = null
     private val binding get() = _binding!!
     companion object {
@@ -23,7 +24,9 @@ class LandingPageFragment : Fragment() {
         _binding = FragmentLandingPageBinding.inflate(inflater, container, false)
 
         binding.button.setOnClickListener {
+            showLoadingScreen(true)
             findNavController().navigate(R.id.action_landingPageFragment_to_authentication_nav_graph)
+            showLoadingScreen(false)
         }
         return binding.root
     }

@@ -88,27 +88,4 @@ class UserViewModel : ViewModel() {
 
     }
 
-
-    fun signInWithGoogle() {
-        // Start the Google Sign-In intent
-        val signInIntent = googleSignInClient.signInIntent
-        // Set up a result listener for the Google Sign-In intent
-        val task = GoogleSignIn.getSignedInAccountFromIntent(signInIntent)
-        val account = task.getResult(ApiException::class.java)
-
-        // Use the Google Sign-In account to sign in to Firebase
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    val user = firebaseAuth.currentUser
-                    // ...
-                } else {
-                    // Sign in failed
-                    // ...
-                }
-            }
-    }
-
 }

@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.peacemaker.android.spare.MainActivity
 
 open class BaseFragment: Fragment() {
 
@@ -17,6 +18,10 @@ open class BaseFragment: Fragment() {
             spannableString.setSpan(ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         textView.text = spannableString
+    }
+
+    fun showLoadingScreen(visibility:Boolean){
+        (activity as MainActivity).setProgressBar(visibility)
     }
 
 }

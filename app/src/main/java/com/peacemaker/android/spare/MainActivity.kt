@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 binding.navView.visibility = View.GONE
             }
         }
+
         FirebaseApp.initializeApp(this)
     }
 
@@ -84,6 +85,18 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment_activity_main, fragment)
             .commit()
+    }
+
+    fun setProgressBar(visibility :Boolean){
+        if (visibility){
+            binding.progressBar.visibility = View.VISIBLE
+            // Set the alpha value of the main layout to dim the screen
+            binding.dimView.visibility = View.VISIBLE
+            binding.progressBar.indeterminateDrawable = getDrawable(R.drawable.progress_bar)
+        }else{
+            binding.progressBar.visibility = View.GONE
+            binding.dimView.visibility = View.GONE
+        }
     }
 
 }

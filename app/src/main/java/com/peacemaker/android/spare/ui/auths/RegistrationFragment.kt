@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.peacemaker.android.spare.R
@@ -38,12 +39,15 @@ class RegistrationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        binding.alreadyHaveAcc.changeTextColor("Sign in", color = R.color.md_theme_light_primary)
         binding.register.setOnClickListener { registerUser() }
+
         viewModel.createUserLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     // User account created and information saved successfully
                   Toast.makeText(requireContext(),"User account created and information saved successfully", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
                 }
                 Status.ERROR -> {
                     // Handle error
@@ -55,7 +59,7 @@ class RegistrationFragment : BaseFragment() {
                 }
             }
         }
-         binding.alreadyHaveAcc.changeTextColor("Sign in", color = R.color.md_theme_light_primary)
+
     }
 
     private fun registerUser(){
