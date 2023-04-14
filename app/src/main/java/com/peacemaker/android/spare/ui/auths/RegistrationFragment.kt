@@ -20,8 +20,6 @@ class RegistrationFragment : BaseFragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var googleSignInClient: GoogleSignInClient
-
     companion object {
         fun newInstance() = RegistrationFragment()
     }
