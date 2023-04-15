@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.peacemaker.android.spare.ui.onboarding.SplashScreenFragment"
-        android:label="fragment_splash_screen"
+        android:label=""
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_landingPageFragment"
