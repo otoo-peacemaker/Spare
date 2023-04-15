@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
      lateinit var binding: ActivityMainBinding
 
-    private val barMenuItems = setOf(R.id.landingPageFragment, R.id.navigation_home)
+    private val barMenuItems = setOf(R.id.splashScreenFragment,R.id.landingPageFragment, R.id.navigation_home)//set nav back arrows
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,20 +31,12 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         setupBottomNavMenu(navController)
        // binding.toolbar.setNavigationIcon(R.drawable.navigate_up)
-        //setSupportActionBar(binding.toolbar)
+
+        setSupportActionBar(binding.toolbar)
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (
-                destination.id == R.id.navigation_home || destination.id == R.id.navigation_wallet
-                || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
-                // do something when the user navigates to my_destination_fragment
-                binding.navView.visibility = View.VISIBLE
-                binding.bottomAppBar.visibility = View.VISIBLE
-                binding.fab.visibility = View.VISIBLE } else{
-                binding.navView.visibility = View.GONE
-                binding.bottomAppBar.visibility = View.GONE
-                binding.fab.visibility = View.GONE
-            }
+            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile)
+            if (destination.id in showBottomNavOnIDs) showVisibilityForBottomNav(true) else showVisibilityForBottomNav(false)
         }
 
         FirebaseApp.initializeApp(this)
@@ -102,4 +94,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showVisibilityForBottomNav(visibility: Boolean){
+        if (visibility){
+            binding.navView.visibility = View.VISIBLE
+            binding.bottomAppBar.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
+        }else{
+            binding.navView.visibility = View.GONE
+            binding.bottomAppBar.visibility = View.GONE
+            binding.fab.visibility = View.GONE
+        }
+
+    }
 }
