@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -73,6 +74,12 @@ open class BaseFragment: Fragment() {
         textView.setTextColor(ContextCompat.getColor(view.context, android.R.color.white))
         snackBarView.setBackgroundColor(ContextCompat.getColor(view.context, R.color.md_theme_light_primary))
         snackBar.show()
+    }
+
+
+    fun showActionBarOnFragment(fragment: Fragment, show:Boolean) {
+        val actionBar = (fragment.requireActivity() as AppCompatActivity).supportActionBar
+        if (show) actionBar?.show() else actionBar?.hide()
     }
 
 
