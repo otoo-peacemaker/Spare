@@ -22,13 +22,13 @@ import com.peacemaker.android.spare.ui.util.Resource
 
 class UserViewModel : ViewModel() {
 
-    private val auth = Firebase.auth
+    private val auth = FirebaseAuth.getInstance()
 
     private val _createUserLiveData = MutableLiveData<Resource<FirebaseUser>?>()
     val createUserLiveData: MutableLiveData<Resource<FirebaseUser>?> = _createUserLiveData
 
-    private val _signInLiveData = MutableLiveData<Resource<AuthResult>>()
-    val signInLiveData: LiveData<Resource<AuthResult>> = _signInLiveData
+    private val _signInLiveData = MutableLiveData<Resource<FirebaseUser>>()
+    val signInLiveData: LiveData<Resource<FirebaseUser>> = _signInLiveData
 
     fun createUser(firstName: String, lastName: String, email: String, phone: String, password: String) {
         _createUserLiveData.value = Resource.loading(null)
@@ -75,7 +75,7 @@ class UserViewModel : ViewModel() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // User signed in successfully
-                        _signInLiveData.value = Resource.success(task.result)
+                        _signInLiveData.value = auth.currentUser.let { Resource.success(it) }
                     }
                 }.addOnFailureListener {
                     _signInLiveData.value = it.message?.let { it1 -> Resource.error(null, it1) }

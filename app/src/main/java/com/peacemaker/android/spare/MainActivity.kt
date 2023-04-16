@@ -1,10 +1,15 @@
 package com.peacemaker.android.spare
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -14,39 +19,34 @@ import androidx.navigation.ui.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 import com.peacemaker.android.spare.databinding.ActivityMainBinding
+import com.peacemaker.android.spare.ui.util.changeBackNavigationIcon
 
 
 class MainActivity : AppCompatActivity() {
 
      lateinit var binding: ActivityMainBinding
 
-    private val barMenuItems = setOf(R.id.landingPageFragment, R.id.navigation_home)
+    private val barMenuItems = setOf(R.id.splashScreenFragment,R.id.landingPageFragment)//disable nav back arrows
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        // Set a transparent drawable as the default icon to avoid it being displayed
+        //actionBar?.setHomeAsUpIndicator(ColorDrawable(Color.TRANSPARENT))
+        //changeBackNavigationIcon(actionBar)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         setupBottomNavMenu(navController)
-       // binding.toolbar.setNavigationIcon(R.drawable.navigate_up)
-        //setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (
-                destination.id == R.id.navigation_home || destination.id == R.id.navigation_wallet
-                || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
-                // do something when the user navigates to my_destination_fragment
-                binding.navView.visibility = View.VISIBLE
-                binding.bottomAppBar.visibility = View.VISIBLE
-                binding.fab.visibility = View.VISIBLE } else{
-                binding.navView.visibility = View.GONE
-                binding.bottomAppBar.visibility = View.GONE
-                binding.fab.visibility = View.GONE
-            }
+            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile)
+            if (destination.id in showBottomNavOnIDs) {
+                showVisibilityForBottomNav(true)
+            } else showVisibilityForBottomNav(false)
         }
-
         FirebaseApp.initializeApp(this)
     }
 
@@ -95,11 +95,22 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
             // Set the alpha value of the main layout to dim the screen
             binding.dimView.visibility = View.VISIBLE
-            binding.progressBar.indeterminateDrawable = getDrawable(R.drawable.progress_bar)
+            binding.progressBar.indeterminateDrawable = ResourcesCompat.getDrawable(resources,R.drawable.progress_bar, null)
         }else{
             binding.progressBar.visibility = View.GONE
             binding.dimView.visibility = View.GONE
         }
     }
 
+    private fun showVisibilityForBottomNav(visibility: Boolean){
+        if (visibility){
+            binding.navView.visibility = View.VISIBLE
+            binding.bottomAppBar.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
+        }else{
+            binding.navView.visibility = View.GONE
+            binding.bottomAppBar.visibility = View.GONE
+            binding.fab.visibility = View.GONE
+        }
+    }
 }

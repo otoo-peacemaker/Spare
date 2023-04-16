@@ -23,12 +23,22 @@ class LandingPageFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         _binding = FragmentLandingPageBinding.inflate(inflater, container, false)
-
-        showLoadingScreen(false)
         binding.button.setOnClickListener {
+            showLoadingScreen(true)
             findNavController().navigate(R.id.action_landingPageFragment_to_authentication_nav_graph)
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showActionBarOnFragment(this,false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        showLoadingScreen(false)
+        showActionBarOnFragment(this,true)
     }
 
 }

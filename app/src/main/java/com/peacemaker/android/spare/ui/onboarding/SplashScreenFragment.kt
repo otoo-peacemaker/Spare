@@ -12,10 +12,11 @@ import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 
 import com.peacemaker.android.spare.R
+import com.peacemaker.android.spare.ui.util.BaseFragment
 
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenFragment : Fragment() {
+class SplashScreenFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = SplashScreenFragment()
@@ -44,6 +45,7 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showActionBarOnFragment(this,false)
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_splashScreenFragment_to_landingPageFragment)
         }, 3000)
