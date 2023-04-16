@@ -6,21 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.RuntimeExecutionException
 import com.google.firebase.auth.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.peacemaker.android.spare.model.User
 import com.peacemaker.android.spare.ui.util.Constants.RC_SIGN_IN
 import com.peacemaker.android.spare.ui.util.Resource
 
-class UserViewModel : ViewModel() {
+class AuthViewModel : ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
 
