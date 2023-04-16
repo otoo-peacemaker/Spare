@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentRegistrationBinding
 import com.peacemaker.android.spare.ui.util.BaseFragment
@@ -24,7 +23,7 @@ class RegistrationFragment : BaseFragment() {
         fun newInstance() = RegistrationFragment()
     }
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: AuthViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +35,7 @@ class RegistrationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         binding.alreadyHaveAcc.changeTextColor("Sign in", color = R.color.md_theme_light_primary)
         binding.register.setOnClickListener { registerUser() }
         binding.alreadyHaveAcc.setOnClickListener { findNavController().navigate(R.id.action_registrationFragment_to_loginFragment) }

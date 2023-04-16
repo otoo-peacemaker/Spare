@@ -1,80 +1,66 @@
 package com.peacemaker.android.spare.ui.home
 
-import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.peacemaker.android.spare.R
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
+import com.peacemaker.android.spare.databinding.HomeListHeaderLayoutBinding
+import com.peacemaker.android.spare.databinding.HomeTransactionListBinding
+import com.peacemaker.android.spare.model.Item
+import com.peacemaker.android.spare.model.Transaction
 
-class MyAdapter(private val itemList: List<MyItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val HEADER_VIEW_TYPE = 0
-    private val ITEM_VIEW_TYPE = 1
-    private val headerDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-    private val itemDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    @RequiresApi(Build.VERSION_CODES.O)
-    private val groupedItems = groupItemsByDate(itemList)
-
+class MyRecAdapter(private val items: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            HEADER_VIEW_TYPE -> HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_list_header_layout, parent, false))
-            ITEM_VIEW_TYPE -> ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_transaction_list, parent, false))
+            VIEW_TYPE_ONE -> {
+                val binding = HomeListHeaderLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemOneViewHolder(binding)
+            }
+            VIEW_TYPE_TWO -> {
+                val binding = HomeTransactionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemTwoViewHolder(binding)
+            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is HeaderViewHolder -> {
-                val header = groupedItems[position]
-                holder.headerTextView.text = headerDateFormat.format(header)
+        when (holder.itemViewType) {
+            VIEW_TYPE_ONE -> {
+                val item = items[position] as Transaction
+                (holder as ItemOneViewHolder).bind(item)
             }
-            is ItemViewHolder -> {
-                val item = groupedItems[position]
-              //  holder.nameTextView.text = "${item.name} at ${itemDateFormat.format(item.dateTime)}"
+            VIEW_TYPE_TWO -> {
+                val item = items[position] as Item
+                (holder as ItemTwoViewHolder).bind(item)
             }
         }
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getItemCount(): Int {
-        return groupedItems.size
+        return items.size
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun getItemViewType(position: Int): Int {
-        return if (groupedItems[position] is LocalDate) HEADER_VIEW_TYPE else ITEM_VIEW_TYPE
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun groupItemsByDate(itemList: List<MyItem>): List<Any> {
-        val groupedItems = mutableListOf<Any>()
-        var lastDate: LocalDate? = null
-        for (item in itemList) {
-            val currentDate = item.dateTime.toLocalDate()
-            if (lastDate == null || lastDate != currentDate) {
-                groupedItems.add(currentDate)
-                lastDate = currentDate
-            }
-            groupedItems.add(item)
+        return when (items[position]) {
+            is Transaction -> VIEW_TYPE_ONE
+            is Item -> VIEW_TYPE_TWO
+            else -> throw IllegalArgumentException("Invalid item type")
         }
-        return groupedItems
+    }
+    inner class ItemOneViewHolder(private val binding: HomeListHeaderLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Transaction) {
+            binding.dateTv.text = item.month
+        }
     }
 
-    class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val headerTextView: TextView = itemView.findViewById(R.id.dateTv)
+    inner class ItemTwoViewHolder(private val binding: HomeTransactionListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Item) {
+            binding.transactionTv.text = item.description
+            binding.amt.text = item.amount.toString()
+            binding.date.text = item.date
+        }
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.transactionTv)
+    companion object{
+        private const val VIEW_TYPE_ONE = 0
+        private const val VIEW_TYPE_TWO = 1
     }
 }
-
-data class MyItem(val id: Int, val name: String, val dateTime: LocalDateTime)
