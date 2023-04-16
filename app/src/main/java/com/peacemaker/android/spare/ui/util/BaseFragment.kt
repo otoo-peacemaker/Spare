@@ -1,10 +1,17 @@
 package com.peacemaker.android.spare.ui.util
 
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +21,11 @@ import com.peacemaker.android.spare.R
 import java.security.MessageDigest
 
 open class BaseFragment: Fragment() {
-
+    override fun onStart() {
+        super.onStart()
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+         activity?.changeBackNavigationIcon(actionBar)
+    }
 
     fun setTextViewPartialColor(textView: TextView, fullText: String, partialText: String, color: Int) {
         val spannableString = SpannableString(fullText)
@@ -53,7 +64,6 @@ open class BaseFragment: Fragment() {
         // If both email and password are valid, return true
         return true
     }
-
     /**
      * This function takes in a view, a message, and an action to be performed when the "Retry" button is clicked.
      * @param view view that the SnackBar should be displayed on (for example, a CoordinatorLayout or a ConstraintLayout).
@@ -76,11 +86,32 @@ open class BaseFragment: Fragment() {
         snackBar.show()
     }
 
-
     fun showActionBarOnFragment(fragment: Fragment, show:Boolean) {
         val actionBar = (fragment.requireActivity() as AppCompatActivity).supportActionBar
         if (show) actionBar?.show() else actionBar?.hide()
     }
 
-
+    fun getDrawable(resId:Int ):Drawable?{
+        return ContextCompat.getDrawable(requireContext(), resId)
+    }
+    fun setupAutoCompleteTextView(
+        autoCompleteTextView: AutoCompleteTextView,
+        suggestions: List<String>,
+        onItemClick: ((String) -> Unit)? = null) {
+        val adapter = ArrayAdapter(
+            autoCompleteTextView.context,
+            android.R.layout.simple_dropdown_item_1line,
+            suggestions
+        )
+        autoCompleteTextView.setAdapter(adapter)
+        autoCompleteTextView.threshold = 1
+        autoCompleteTextView.setDropDownBackgroundDrawable(getDrawable(R.drawable.chevron_down))
+        onItemClick?.let { listener ->
+            autoCompleteTextView.onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position, _ ->
+                    val selectedItem = adapter.getItem(position) as String
+                    listener.invoke(selectedItem)
+                }
+        }
+    }
 }

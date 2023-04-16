@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.peacemaker.android.spare.R
+import com.peacemaker.android.spare.ui.util.BaseFragment
 
-class TransferFragment : Fragment() {
+class TransferFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = TransferFragment()

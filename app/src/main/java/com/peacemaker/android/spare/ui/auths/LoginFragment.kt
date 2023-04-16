@@ -43,7 +43,7 @@ class LoginFragment : BaseFragment() {
             when (resource.status) {
                 Status.SUCCESS -> {
                     // User signed in successfully
-                    showSnackBar(requireView(),"${resource.data?.email} signed in successfully")
+                    //showSnackBar(requireView(),"${resource.data?.email} signed in successfully")
                     findNavController().navigate(R.id.action_global_bottom_nav_graph)
                     runBlocking {
                         delay(2000)

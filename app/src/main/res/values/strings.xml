@@ -27,4 +27,11 @@
     <string name="wallet">Wallet</string>
     <string name="chat">Chat</string>
     <string name="profile">Profile</string>
+    <string name="add_money">Add money</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="more">More..</string>
+    <string name="my_analysis">My Analysis</string>
+    <string name="week">Week</string>
+    <string name="spare_balance">spare balance</string>
+    <string name="_5_760_19">$ 5,760.19</string>
 </resources>

@@ -103,16 +103,14 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
-        style="@style/Widget.Material3.Button.ElevatedButton"
+        style="@style/MaterialButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/md_theme_light_primary"
         android:text="@string/sign_in"
         android:textAllCaps="false"
-        android:textColor="@color/md_theme_light_onPrimary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"

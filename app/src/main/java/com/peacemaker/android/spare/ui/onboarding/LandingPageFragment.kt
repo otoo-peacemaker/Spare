@@ -30,6 +30,11 @@ class LandingPageFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        showActionBarOnFragment(this,false)
+    }
+
     override fun onPause() {
         super.onPause()
         showLoadingScreen(false)
