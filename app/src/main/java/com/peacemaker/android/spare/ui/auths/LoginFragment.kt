@@ -2,18 +2,15 @@ package com.peacemaker.android.spare.ui.auths
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
-import com.peacemaker.android.spare.databinding.FragmentLandingPageBinding
 import com.peacemaker.android.spare.databinding.FragmentLoginBinding
 import com.peacemaker.android.spare.ui.util.BaseFragment
 import com.peacemaker.android.spare.ui.util.Status
+import com.peacemaker.android.spare.ui.viewmodels.TransactionViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
@@ -24,7 +21,8 @@ class LoginFragment : BaseFragment() {
         fun newInstance() = LoginFragment()
     }
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: AuthViewModel
+    private lateinit var TxViewModel: TransactionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +34,9 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        val transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
+
         setOnClickListeners()
 
         viewModel.signInLiveData.observe(viewLifecycleOwner) { resource ->
@@ -49,6 +49,9 @@ class LoginFragment : BaseFragment() {
                         delay(2000)
                         showLoadingScreen(false)
                     }
+
+                  /*  val transaction =  Transactions("Send","$66000","may 10")
+                    transactionViewModel.saveTransactionDataToFireStore(transaction)*/
 
                 }
                 Status.ERROR -> {
