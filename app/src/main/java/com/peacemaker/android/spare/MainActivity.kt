@@ -35,15 +35,12 @@ class MainActivity : AppCompatActivity() {
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (
-                destination.id == R.id.navigation_home
-                || destination.id == R.id.navigation_wallet
-                || destination.id == R.id.navigation_chat
-                || destination.id == R.id.navigation_profile) {
+                destination.id == R.id.navigation_home || destination.id == R.id.navigation_wallet
+                || destination.id == R.id.navigation_chat || destination.id == R.id.navigation_profile) {
                 // do something when the user navigates to my_destination_fragment
                 binding.navView.visibility = View.VISIBLE
                 binding.bottomAppBar.visibility = View.VISIBLE
-                binding.fab.visibility = View.VISIBLE
-            } else{
+                binding.fab.visibility = View.VISIBLE } else{
                 binding.navView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE
