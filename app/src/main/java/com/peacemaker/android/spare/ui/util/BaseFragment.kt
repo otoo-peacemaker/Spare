@@ -1,10 +1,14 @@
 package com.peacemaker.android.spare.ui.util
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +17,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -70,6 +75,13 @@ open class BaseFragment: Fragment() {
         // If both email and password are valid, return true
         return true
     }
+    fun validateString(string: String):Boolean{
+        return with(string){
+            this.isNotEmpty()
+            this.length >3
+        }
+    }
+
     /**
      * This function takes in a view, a message, and an action to be performed when the "Retry" button is clicked.
      * @param view view that the SnackBar should be displayed on (for example, a CoordinatorLayout or a ConstraintLayout).
@@ -137,18 +149,18 @@ open class BaseFragment: Fragment() {
         dataSets: ArrayList<IBarDataSet?>, valueFormatter: ArrayList<String>,
         isLegendEnable: Boolean=false,
         setPercentFormatter: Boolean=true,
-        barSpace:Float = 0.4f,
-        grpSpace:Float = 0.4f) {
+        barSpace:Float = 0.45f,
+        grpSpace:Float = 0.2f) {
 
         //connect our data to the vBarDataSet UI Screen
         barChart.apply {
-            data = BarData(dataSets).apply { barWidth = 0.2f }
+            data = BarData(dataSets).apply { barWidth = 0.5f }
             animateXY(2000, 2000, Easing.EaseInSine)
             description.isEnabled = false
             if (setPercentFormatter){
                 data.setValueFormatter(PercentFormatter())
             }
-            groupBars(0.2f, grpSpace, barSpace)
+            groupBars(0.3f, grpSpace, barSpace)
             legend.isEnabled = isLegendEnable
             setBackgroundColor(Color.TRANSPARENT)
             //format axis
@@ -159,12 +171,14 @@ open class BaseFragment: Fragment() {
             axisLeft.axisMaximum = 100f
             axisLeft.axisMinimum = 0f
             axisLeft.isEnabled = false
-            axisLeft.setDrawAxisLine(false)
+            axisLeft.setDrawAxisLine(true)
             axisLeft.textColor = resources.getColor(R.color.black, null)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             axisRight.isEnabled = false
             // Display labels for bars
-            xAxis.valueFormatter = MyXValueFormatter(valueFormatter)
+            if (valueFormatter.isNotEmpty()) xAxis.valueFormatter = MyXValueFormatter(valueFormatter)
+
+            setFitBars(true)
             invalidate()
         }
     }
@@ -178,5 +192,16 @@ open class BaseFragment: Fragment() {
                 ""
             }
         }
+    }
+
+    inline fun <reified T : ViewBinding> Fragment.inflateViewBindingDialog(
+        crossinline bindingInflater: (LayoutInflater) -> T,
+        crossinline block: AlertDialog.Builder.(T) -> Unit = {}): AlertDialog {
+        val binding = bindingInflater(LayoutInflater.from(requireContext()))
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .apply { block(binding) }
+            .create()
+            .apply { setView(binding.root) }
     }
 }

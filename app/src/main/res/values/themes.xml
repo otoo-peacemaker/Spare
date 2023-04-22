@@ -32,6 +32,7 @@
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/CustomTextInputLayoutStyle</item>
         <item name="actionButtonStyle">@style/MaterialButtonStyle</item>
+        <item name="floatingActionButtonStyle">@style/ExtendedFloatingActionButtonStyle</item>
     </style>
 
 

@@ -31,9 +31,8 @@ class WalletFragment : BaseFragment() {
                 CreditCard("Visa","1234 5678 9012 3456", "Kaska Doe", "12/23"),
                 CreditCard("Mastercard","2345 6789 0123 4567", "Jane Doe", "01/25"),
                 CreditCard("Mastercard","3456 7890 1234 5678", "Bob Smith", "06/22"))
-           // val adapter = CardAdapter(cards)
-            //viewPager.adapter = adapter
-
+           /* val cardAdapter = CardAdapter(cards)
+            viewPager.adapter = cardAdapter*/
 
 
             val autoCompleteTextView =autoCompleteTextView

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,8 +21,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.peacemaker.android.spare.databinding.ActivityMainBinding
+import com.peacemaker.android.spare.databinding.SendModalSheetBinding
 import com.peacemaker.android.spare.ui.util.changeBackNavigationIcon
 
 
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         // Set a transparent drawable as the default icon to avoid it being displayed
@@ -45,13 +49,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile)
+            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
             if (destination.id in showBottomNavOnIDs) {
                 showVisibilityForBottomNav(true)
             } else showVisibilityForBottomNav(false)
         }
-        FirebaseApp.initializeApp(this)
-        onApplyWindowInsetsListenerOnBottomNav()
+
+        binding.fab.setOnClickListener {
+            showModalSheet(navController)
+        }
     }
 
     //Using NavigationUI to configure Bottom Navigation
@@ -108,13 +114,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showVisibilityForBottomNav(visibility: Boolean){
         if (visibility){
-            binding.navView.visibility = View.VISIBLE
-            binding.bottomAppBar.visibility = View.VISIBLE
-            binding.fab.visibility = View.VISIBLE
+            binding.coordinatorLayout.visibility = View.VISIBLE
         }else{
-            binding.navView.visibility = View.GONE
-            binding.bottomAppBar.visibility = View.GONE
-            binding.fab.visibility = View.GONE
+            binding.coordinatorLayout.visibility = View.GONE
         }
     }
 
@@ -133,4 +135,26 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+    private fun showModalSheet(navController: NavController) {
+        val binding = SendModalSheetBinding.inflate(layoutInflater)
+        val dialog = BottomSheetDialog(this)
+        val makePayment = binding.pay2AnotherUser
+        val requestPayment = binding.requestPayment
+        val payBills = binding.payBills
+
+        makePayment.setOnClickListener {
+            navController.navigate(R.id.action_global_sendFragment)
+            dialog.cancel()
+        }
+        requestPayment.setOnClickListener {
+
+        }
+        payBills.setOnClickListener {
+
+        }
+
+        dialog.setContentView(binding.root)
+        dialog.show()
+    }
+
 }

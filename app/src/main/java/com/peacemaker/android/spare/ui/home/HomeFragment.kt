@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
@@ -71,12 +72,16 @@ class HomeFragment : BaseFragment() {
         }
 
         dataSets.clear()
-        dataSets.add(barDataSet((R.color.light_blue_A200), arrayListOf(BarEntry(3f, 48f)), "January"))
-        dataSets.add(barDataSet((R.color.light_blue_A400), arrayListOf(BarEntry(2f, 70f)), "March"))
-        dataSets.add(barDataSet((R.color.light_blue_600), arrayListOf(BarEntry(1f, 68.0F)), "April"))
-        dataSets.add(barDataSet((R.color.md_theme_dark_error), arrayListOf(BarEntry(2f, 70f)), "Feb"))
-        dataSets.add(barDataSet((R.color.light_blue_900), arrayListOf(BarEntry(1f, 68.0F)), "May"))
+        dataSets.add(barDataSet((R.color.light_blue_A200), arrayListOf(BarEntry(5f, 48f)), "January"))
+        dataSets.add(barDataSet((R.color.light_blue_A400), arrayListOf(BarEntry(2f, 100f)), "March"))
+        dataSets.add(barDataSet((R.color.light_blue_600), arrayListOf(BarEntry(4f, 68.0F)), "April"))
+        dataSets.add(barDataSet((R.color.md_theme_dark_error), arrayListOf(BarEntry(3f, 90f)), "Feb"))
+        dataSets.add(barDataSet((R.color.light_blue_900), arrayListOf(BarEntry(1f, 80.0F)), "May"))
         setBarChart(binding.bankTransactionChart, dataSets, arrayListOf("January", "March", "April","Feb","May"))
+
+        binding.addMore.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_addMoneyFragment)
+        }
 
     }
 

@@ -18,11 +18,6 @@ import com.peacemaker.android.spare.ui.util.changeTextColor
 class RegistrationFragment : BaseFragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        fun newInstance() = RegistrationFragment()
-    }
-
     private lateinit var viewModel: AuthViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,13 +91,20 @@ class RegistrationFragment : BaseFragment() {
             val email = email.text.toString()
             val phone = phoneNum.text.toString()
             val password = password.text.toString()
-            viewModel.createUser(
-                firstName = firstname,
-                lastName,
-                email = email,
-                phone = phone,
-                password = password
-            )
+            if (validateEmailAndPassword(email,password){
+                showSnackBar(requireView(),it) }){
+                if (validateString(firstname) and validateString(lastName) and validateString(email) and validateString(password)){
+                    viewModel.createUser(
+                        firstName = firstname,
+                        lastName,
+                        email = email,
+                        phone = phone,
+                        password = password
+                    )
+                }else{
+                    showSnackBar(requireView(),"Field can not be empty or must greater than 3")
+                }
+            }
         }
     }
 }

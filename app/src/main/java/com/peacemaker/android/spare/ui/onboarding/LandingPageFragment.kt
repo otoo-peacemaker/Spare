@@ -15,9 +15,6 @@ import kotlinx.coroutines.runBlocking
 class LandingPageFragment : BaseFragment() {
     private var _binding: FragmentLandingPageBinding? = null
     private val binding get() = _binding!!
-    companion object {
-        fun newInstance() = LandingPageFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +34,7 @@ class LandingPageFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        showLoadingScreen(false)
+        showLoadingScreen(true)
         showActionBarOnFragment(this,true)
     }
 
