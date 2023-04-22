@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         // Set a transparent drawable as the default icon to avoid it being displayed
@@ -108,13 +109,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showVisibilityForBottomNav(visibility: Boolean){
         if (visibility){
-            binding.navView.visibility = View.VISIBLE
-            binding.bottomAppBar.visibility = View.VISIBLE
-            binding.fab.visibility = View.VISIBLE
+            binding.coordinatorLayout.visibility = View.VISIBLE
         }else{
-            binding.navView.visibility = View.GONE
-            binding.bottomAppBar.visibility = View.GONE
-            binding.fab.visibility = View.GONE
+            binding.coordinatorLayout.visibility = View.GONE
         }
     }
 
