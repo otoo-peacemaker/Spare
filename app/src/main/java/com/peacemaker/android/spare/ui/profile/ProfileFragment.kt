@@ -56,6 +56,10 @@ class ProfileFragment : BaseFragment() {
                 profileImg.setImageDrawable(getDrawable(R.drawable.ico_help))
                 username.text = getString(R.string.help)
             }
+            aboutUs.apply {
+                profileImg.setImageDrawable(getDrawable(R.drawable.ico_about_us))
+                username.text = getString(R.string.about_us)
+            }
             signOut.apply {
                 profileImg.setImageDrawable(getDrawable(R.drawable.ico_log_out))
                 username.text = getString(R.string.logout)

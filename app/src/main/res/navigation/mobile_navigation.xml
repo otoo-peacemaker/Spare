@@ -106,8 +106,12 @@
         <fragment
             android:id="@+id/addMoneyFragment"
             android:name="com.peacemaker.android.spare.ui.home.AddMoneyFragment"
-            android:label="fragment_add_money"
-            tools:layout="@layout/fragment_add_money" />
+            android:label="Add money"
+            tools:layout="@layout/fragment_add_money" >
+            <action
+                android:id="@+id/action_addMoneyFragment_to_navigation_home"
+                app:popUpTo="@id/navigation_home" />
+        </fragment>
     </navigation>
     <fragment
         android:id="@+id/sendFragment"

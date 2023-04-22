@@ -64,4 +64,5 @@
     <string name="send_more">Send More</string>
     <string name="debit_cc">Debit or credit card</string>
     <string name="bank_transfer">Bank transfer</string>
+    <string name="about_us">About us</string>
 </resources>

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupActionBar(navController = navController, appBarConfig = barMenuItems)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile)
+            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
             if (destination.id in showBottomNavOnIDs) {
                 showVisibilityForBottomNav(true)
             } else showVisibilityForBottomNav(false)
