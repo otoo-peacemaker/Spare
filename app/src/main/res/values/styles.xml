@@ -39,8 +39,22 @@
     <style name="MaterialButtonStyle" parent="Widget.Material3.Button.ElevatedButton">
         <item name="backgroundTint">@color/md_theme_light_primary</item>
         <item name="android:textColor">@color/md_theme_light_onPrimary</item>
-        <item name="textAllCaps">false</item>
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+    </style>
+
+    <style name="ExtendedFloatingActionButtonStyle" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
+        <item name="backgroundTint">@color/md_theme_light_primary</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+        <item name="icon">@drawable/ico_add_btn</item>
+        <item name="iconTint">@null</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+
+    </style>
+
+    <style name="ButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

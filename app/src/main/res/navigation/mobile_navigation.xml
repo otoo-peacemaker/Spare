@@ -75,7 +75,11 @@
             android:id="@+id/navigation_home"
             android:name="com.peacemaker.android.spare.ui.home.HomeFragment"
             android:label="@string/title_home"
-            tools:layout="@layout/fragment_home" />
+            tools:layout="@layout/fragment_home" >
+            <action
+                android:id="@+id/action_navigation_home_to_addMoneyFragment"
+                app:destination="@id/addMoneyFragment" />
+        </fragment>
         <fragment
             android:id="@+id/navigation_wallet"
             android:name="com.peacemaker.android.spare.ui.wallet.WalletFragment"
@@ -96,6 +100,20 @@
             android:name="com.peacemaker.android.spare.ui.profile.ProfileFragment"
             android:label="Profile"
             tools:layout="@layout/fragment_profile" />
+        <action
+            android:id="@+id/action_global_sendFragment"
+            app:destination="@id/sendFragment" />
+        <fragment
+            android:id="@+id/addMoneyFragment"
+            android:name="com.peacemaker.android.spare.ui.home.AddMoneyFragment"
+            android:label="fragment_add_money"
+            tools:layout="@layout/fragment_add_money" />
     </navigation>
+    <fragment
+        android:id="@+id/sendFragment"
+        android:name="com.peacemaker.android.spare.ui.send.SendFragment"
+        android:label="Send"
+        tools:layout="@layout/fragment_send" />
+
 
 </navigation>
