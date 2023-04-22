@@ -10,6 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             } else showVisibilityForBottomNav(false)
         }
         FirebaseApp.initializeApp(this)
+        onApplyWindowInsetsListenerOnBottomNav()
     }
 
     //Using NavigationUI to configure Bottom Navigation
@@ -111,6 +115,22 @@ class MainActivity : AppCompatActivity() {
             binding.navView.visibility = View.GONE
             binding.bottomAppBar.visibility = View.GONE
             binding.fab.visibility = View.GONE
+        }
+    }
+
+    private fun onApplyWindowInsetsListenerOnBottomNav(){
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navView) { view, insets ->
+            // Check if the keyboard is visible
+            if (insets.isVisible(WindowInsetsCompat.Type.ime())) {
+                // Hide the BottomNavigationView
+                view.visibility = View.GONE
+            } else {
+                // Show the BottomNavigationView
+                view.visibility = View.VISIBLE
+            }
+            // Update the padding of the BottomNavigationView to match the system insets
+            view.updatePadding(bottom = insets.systemWindowInsetBottom)
+            insets
         }
     }
 }

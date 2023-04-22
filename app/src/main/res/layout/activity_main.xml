@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -63,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabAlignmentMode="center"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:fabCradleMargin="15dp"
         app:fabCradleRoundedCornerRadius="30dp"
         app:fabCradleVerticalOffset="1dp">
@@ -72,10 +73,10 @@
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -88,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:src="@drawable/send"
         app:layout_anchor="@id/bottomAppBar" />
 
