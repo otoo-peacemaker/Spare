@@ -51,8 +51,10 @@ class MainActivity : AppCompatActivity() {
                 showVisibilityForBottomNav(true)
             } else showVisibilityForBottomNav(false)
         }
-        FirebaseApp.initializeApp(this)
-        onApplyWindowInsetsListenerOnBottomNav()
+
+        binding.fab.setOnClickListener {
+            showModalSheet(navController)
+        }
     }
 
     //Using NavigationUI to configure Bottom Navigation
@@ -130,4 +132,26 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
+    private fun showModalSheet(navController: NavController) {
+        val binding = SendModalSheetBinding.inflate(layoutInflater)
+        val dialog = BottomSheetDialog(this)
+        val makePayment = binding.pay2AnotherUser
+        val requestPayment = binding.requestPayment
+        val payBills = binding.payBills
+
+        makePayment.setOnClickListener {
+            navController.navigate(R.id.action_global_sendFragment)
+            dialog.cancel()
+        }
+        requestPayment.setOnClickListener {
+
+        }
+        payBills.setOnClickListener {
+
+        }
+
+        dialog.setContentView(binding.root)
+        dialog.show()
+    }
+
 }
