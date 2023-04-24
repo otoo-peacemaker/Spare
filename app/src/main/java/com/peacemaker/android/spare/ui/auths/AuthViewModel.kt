@@ -6,19 +6,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.RuntimeExecutionException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.peacemaker.android.spare.model.User
+import com.peacemaker.android.spare.model.SpareUser
 import com.peacemaker.android.spare.ui.util.Constants.RC_SIGN_IN
 import com.peacemaker.android.spare.ui.util.Resource
 
 class AuthViewModel : ViewModel() {
 
-    private val auth = FirebaseAuth.getInstance()
+    private var auth = FirebaseAuth.getInstance()
 
     private val _createUserLiveData = MutableLiveData<Resource<FirebaseUser>?>()
     val createUserLiveData: MutableLiveData<Resource<FirebaseUser>?> = _createUserLiveData
@@ -38,9 +42,9 @@ class AuthViewModel : ViewModel() {
                         val db = Firebase.firestore
 
                         // Save additional user information in the Fire store database
-                        val user = User(firstName, lastName, email, phone,password)
+                        val spareUser = SpareUser(firstName=firstName, lastName=lastName, email=email, phone=phone, password = password)
                         if (userId != null) {
-                            db.collection("users").document(userId).set(user)
+                            db.collection("users").document(userId).set(spareUser)
                                 .addOnSuccessListener {
                                     _createUserLiveData.value = Resource.success(firebaseUser)
                                 }
@@ -94,14 +98,14 @@ class AuthViewModel : ViewModel() {
         val signInIntent = googleSignInClient.signInIntent
         activity.startActivityForResult(signInIntent, RC_SIGN_IN)
     }
-    fun handleGoogleSignInResult(data: Intent?, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun handleGoogleSignInResult(data: Intent?, onSuccess: (GoogleSignInAccount) -> Unit, onFailure: () -> Unit) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
             val account = task.getResult(ApiException::class.java)!!
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             auth.signInWithCredential(credential).addOnCompleteListener { taskListener ->
                 if (taskListener.isSuccessful) {
-                    onSuccess.invoke()
+                    onSuccess.invoke(account)
                 } else {
                     onFailure.invoke()
                 }
@@ -111,8 +115,11 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signOut() {
-        auth.signOut()
-        _createUserLiveData.postValue(null)
+    fun signOut(route :()->Unit) {
+        if (auth.currentUser !=null ){
+            auth.signOut()
+            _createUserLiveData.postValue(null)
+            route.invoke()
+        }
     }
 }
