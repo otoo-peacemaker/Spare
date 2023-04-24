@@ -65,4 +65,14 @@
     <string name="debit_cc">Debit or credit card</string>
     <string name="bank_transfer">Bank transfer</string>
     <string name="about_us">About us</string>
+    <string name="add_card_msg"><![CDATA[Send money or pay bills & services with ease.]]></string>
+    <string name="add_card">Add Card</string>
+    <string name="link_a_debit_or_credit_card">Link a debit or credit card</string>
+    <string name="card_number">Card number</string>
+    <string name="_06_24">06/24</string>
+    <string name="save_card_for_future">Save card for future</string>
+    <string name="add_more_money">Add More Money</string>
+    <string name="text_name">Text Name</string>
+    <string name="how_much_would_you_like_to_add_nfrom_your_card">How much would you like to add \nfrom your card?</string>
+    <string name="xxxx_xxxx_xxxx_0251">xxxx-xxxx-xxxx-0251</string>
 </resources>

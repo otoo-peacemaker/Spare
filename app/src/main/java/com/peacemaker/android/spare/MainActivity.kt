@@ -1,15 +1,11 @@
 package com.peacemaker.android.spare
 
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,14 +21,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.peacemaker.android.spare.databinding.ActivityMainBinding
 import com.peacemaker.android.spare.databinding.SendModalSheetBinding
-import com.peacemaker.android.spare.ui.util.changeBackNavigationIcon
 
 
 class MainActivity : AppCompatActivity() {
 
      lateinit var binding: ActivityMainBinding
+     lateinit var navController: NavController
 
-    private val barMenuItems = setOf(R.id.splashScreenFragment,R.id.landingPageFragment)//disable nav back arrows
+    private val barMenuItems = setOf(R.id.navigation_home, R.id.splashScreenFragment,R.id.landingPageFragment)//disable nav back arrows
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,20 +36,13 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        // Set a transparent drawable as the default icon to avoid it being displayed
-        //actionBar?.setHomeAsUpIndicator(ColorDrawable(Color.TRANSPARENT))
-        //changeBackNavigationIcon(actionBar)
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-        val navController = navHostFragment.navController
+         navController = navHostFragment.navController
         setupBottomNavMenu(navController)
         setSupportActionBar(binding.toolbar)
-        setupActionBar(navController = navController, appBarConfig = barMenuItems)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
-            if (destination.id in showBottomNavOnIDs) {
-                showVisibilityForBottomNav(true)
-            } else showVisibilityForBottomNav(false)
-        }
+        setupActionBarWithNavController(navController = navController, appBarConfig = barMenuItems)
+        addOnDestinationChangedListener(navController)
 
         binding.fab.setOnClickListener {
             showModalSheet(navController)
@@ -67,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navController)
     }
 
-    private fun setupActionBar(
+    private fun setupActionBarWithNavController(
         navController: NavController,
         drawerLayoutId: Int?=null,
         appBarConfig : Set<Int>, ) {
@@ -87,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment_activity_main).navigateUp(appBarConfiguration)
     }
 
-    private fun onBackPress(){
+     fun onBackPress(){
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { binding.navView.visibility = View.GONE }
         }
@@ -156,5 +145,29 @@ class MainActivity : AppCompatActivity() {
         dialog.setContentView(binding.root)
         dialog.show()
     }
+    private fun getCurrentDestinationName(): String {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val currentDestination = navController.currentDestination
+        return currentDestination?.label?.toString() ?: "something"
+    }
+
+    private fun addOnDestinationChangedListener(navController: NavController){
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
+            if (destination.id in showBottomNavOnIDs) {
+                showVisibilityForBottomNav(true)
+                if (destination.id == R.id.navigation_home){
+                    Log.d("Main","Home Fragment")
+                    binding.customToolbar.visibility = View.VISIBLE
+                }else {
+                    binding.customToolbar.visibility = View.GONE
+                }
+            } else {
+                showVisibilityForBottomNav(false)
+                binding.customToolbar.visibility = View.GONE
+            }
+        }
+    }
+
 
 }

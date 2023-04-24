@@ -1,10 +1,9 @@
 package com.peacemaker.android.spare.ui.util
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -14,9 +13,11 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.viewbinding.ViewBinding
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
@@ -32,10 +33,16 @@ import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
 
 open class BaseFragment: Fragment() {
+    lateinit var navController: NavController
     override fun onStart() {
         super.onStart()
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-         activity?.changeBackNavigationIcon(actionBar)
+       /* val actionBar = (activity as AppCompatActivity).supportActionBar
+         activity?.changeBackNavigationIcon(actionBar)*/
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = (activity as MainActivity).navController
     }
 
     fun setTextViewPartialColor(textView: TextView, fullText: String, partialText: String, color: Int) {
@@ -196,12 +203,30 @@ open class BaseFragment: Fragment() {
 
     inline fun <reified T : ViewBinding> Fragment.inflateViewBindingDialog(
         crossinline bindingInflater: (LayoutInflater) -> T,
-        crossinline block: AlertDialog.Builder.(T) -> Unit = {}): AlertDialog {
+        width: Int? = null,
+        height: Int? = null,
+        crossinline block: (AlertDialog.Builder).(T) -> Unit = {}): AlertDialog {
         val binding = bindingInflater(LayoutInflater.from(requireContext()))
-        return AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .apply { block(binding) }
             .create()
-            .apply { setView(binding.root) }
+            .apply {
+                setView(binding.root)
+            }
+        if (width != null && height != null) {
+            dialog.window?.setLayout(width, height)
+        }
+        return dialog
     }
+
+    fun handleOnBackPressed(onBackPressed: () -> Unit) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onBackPressed()
+            }
+        })
+    }
+
+
 }

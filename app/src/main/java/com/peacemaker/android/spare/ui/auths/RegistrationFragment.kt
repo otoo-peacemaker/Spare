@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.R
+import com.peacemaker.android.spare.data.repository.FireStoreRepository
 import com.peacemaker.android.spare.databinding.FragmentRegistrationBinding
+import com.peacemaker.android.spare.model.UserProfile
 import com.peacemaker.android.spare.ui.util.BaseFragment
 import com.peacemaker.android.spare.ui.util.Constants.RC_SIGN_IN
 import com.peacemaker.android.spare.ui.util.Status
@@ -19,6 +21,7 @@ class RegistrationFragment : BaseFragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewModel
+    private val fireStoreRepository by lazy { FireStoreRepository() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,8 +76,15 @@ class RegistrationFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            viewModel.handleGoogleSignInResult(data, onSuccess = {
+            viewModel.handleGoogleSignInResult(data, onSuccess = {account->
                 // Handle successful sign-in
+                account.let {
+                    fireStoreRepository.saveUserProfileWithGoogle(user = UserProfile(
+                        fullName = it.displayName!!,
+                        email = it.email!!,
+                        profilePictureUrl =it.photoUrl?.toString()!!))
+                }
+
                 Toast.makeText(requireContext(), "Login successfully", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_registrationFragment_to_bottomNavGraph)
             }, onFailure = {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.peacemaker.android.spare.R
 import com.peacemaker.android.spare.databinding.FragmentLoginBinding
@@ -22,7 +23,9 @@ class LoginFragment : BaseFragment() {
     }
 
     private lateinit var viewModel: AuthViewModel
-    private lateinit var TxViewModel: TransactionViewModel
+    private  val transactionViewModel: TransactionViewModel by viewModels()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +38,6 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        val transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         setOnClickListeners()
 
