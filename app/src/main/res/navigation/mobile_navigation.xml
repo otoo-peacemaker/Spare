@@ -79,6 +79,9 @@
             <action
                 android:id="@+id/action_navigation_home_to_addMoneyFragment"
                 app:destination="@id/addMoneyFragment" />
+            <action
+                android:id="@+id/action_navigation_home_to_navigation_profile"
+                app:destination="@id/navigation_profile" />
         </fragment>
         <fragment
             android:id="@+id/navigation_wallet"
@@ -119,6 +122,9 @@
         <action
             android:id="@+id/action_global_cardsFragment"
             app:destination="@id/cardsFragment" />
+        <action
+            android:id="@+id/action_global_billsAndServicesFragment"
+            app:destination="@id/billsAndServicesFragment" />
     </navigation>
     <fragment
         android:id="@+id/sendFragment"
@@ -152,4 +158,9 @@
             android:id="@+id/action_addNewCardFragment_to_addMoneyWithCardFragment"
             app:destination="@id/addMoneyWithCardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/billsAndServicesFragment"
+        android:name="com.peacemaker.android.spare.ui.main.bank.bills.BillsAndServicesFragment"
+        android:label="Bills and services"
+        tools:layout="@layout/fragment_bills_and_services" />
 </navigation>
