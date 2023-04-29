@@ -91,72 +91,72 @@
 
     <include
         android:id="@+id/accInfo"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/cdtCardDigitL"/>
 
     <include
         android:id="@+id/accVerification"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/accInfo"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/invitation"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/accVerification"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/bankCards"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/invitation"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/privacy"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/bankCards"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/helpAndSupport"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/privacy"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/aboutUs"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/helpAndSupport"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/signOut"
-        layout="@layout/send_recipient_list"
+        layout="@layout/profile_list_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs"
         tools:layout_editor_absoluteX="20dp" />
 

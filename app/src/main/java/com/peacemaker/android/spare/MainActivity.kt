@@ -1,13 +1,10 @@
 package com.peacemaker.android.spare
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -108,9 +105,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun showVisibilityForBottomNav(visibility: Boolean){
         if (visibility){
-            binding.coordinatorLayout.visibility = View.VISIBLE
+            binding.bottomAppBar.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
         }else{
-            binding.coordinatorLayout.visibility = View.GONE
+            binding.bottomAppBar.visibility = View.GONE
+            binding.fab.visibility = View.GONE
         }
     }
 
