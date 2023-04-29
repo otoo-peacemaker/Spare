@@ -1,11 +1,13 @@
 package com.peacemaker.android.spare
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -47,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             showModalSheet(navController)
         }
+
+
+
     }
 
     //Using NavigationUI to configure Bottom Navigation
@@ -139,7 +144,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         payBills.setOnClickListener {
-
+            navController.navigate(R.id.action_global_billsAndServicesFragment)
+            dialog.cancel()
         }
 
         dialog.setContentView(binding.root)
@@ -153,11 +159,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun addOnDestinationChangedListener(navController: NavController){
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
+            val showBottomNavOnIDs = listOf(
+                R.id.navigation_home, R.id.navigation_wallet,
+                R.id.navigation_chat, R.id.navigation_profile,
+                R.id.addMoneyFragment, R.id.billsAndServicesFragment)
             if (destination.id in showBottomNavOnIDs) {
                 showVisibilityForBottomNav(true)
                 if (destination.id == R.id.navigation_home){
-                    Log.d("Main","Home Fragment")
                     binding.customToolbar.visibility = View.VISIBLE
                 }else {
                     binding.customToolbar.visibility = View.GONE
@@ -168,6 +176,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

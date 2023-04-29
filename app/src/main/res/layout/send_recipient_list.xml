@@ -9,9 +9,8 @@
 
     <ImageView
         android:id="@+id/profileImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:contentDescription="@string/profile_image"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"

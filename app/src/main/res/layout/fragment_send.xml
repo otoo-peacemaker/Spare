@@ -13,7 +13,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/recent_recipients"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView12"
         tools:itemCount="1"
         tools:layout_editor_absoluteX="0dp"
-        tools:listitem="@layout/recent_recipient_list" />
+        tools:listitem="@layout/recent_recipient_profile" />
 
     <EditText
         android:id="@+id/searchView"

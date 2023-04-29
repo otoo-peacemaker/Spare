@@ -4,17 +4,25 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.peacemaker.android.spare.databinding.SendRecipientListBinding
+import com.peacemaker.android.spare.model.RecentProfile
 
-class SendSearchAdapter(private var items: List<String>) :
+class SendSearchAdapter(private var items: ArrayList<RecentProfile>) :
     RecyclerView.Adapter<SendSearchAdapter.ViewHolder>() {
 
-    private var filteredItems: List<String> = items
+    private var filteredItems: MutableList<RecentProfile> = items
 
     inner class ViewHolder(private val binding: SendRecipientListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) {
+        fun bind(item: RecentProfile) {
             // Bind the item to the UI elements in the ViewHolder
-            binding.username.text = item
+            binding.username.text = item.first_name
+            val imageUrl = item.profile_image_url
+            Glide.with(binding.root)
+                .load(imageUrl)
+                .transform(CenterCrop())
+                .into(binding.profileImg)
         }
     }
 
@@ -35,7 +43,8 @@ class SendSearchAdapter(private var items: List<String>) :
 
     @SuppressLint("NotifyDataSetChanged")
     fun filter(query: String) {
-        filteredItems = items.filter { it.contains(query, ignoreCase = true) }
+        filteredItems = items.filter {
+            it.first_name.contains(query, ignoreCase = true) } as MutableList<RecentProfile>
         notifyDataSetChanged()
     }
 }
