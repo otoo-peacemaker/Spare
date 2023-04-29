@@ -1,6 +1,7 @@
 package com.peacemaker.android.spare.ui.util
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -29,8 +30,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
+import org.json.JSONArray
 
 open class BaseFragment: Fragment() {
     lateinit var navController: NavController
@@ -227,6 +230,20 @@ open class BaseFragment: Fragment() {
             }
         })
     }
+
+    inline fun <reified T> readJsonData(context: Context, fileName: String): List<T> {
+        val jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        val jsonArray = JSONArray(jsonString)
+        val list = mutableListOf<T>()
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            val gson = Gson()
+            val item = gson.fromJson(jsonObject.toString(), T::class.java)
+            list.add(item)
+        }
+        return list
+    }
+
 
 
 }
