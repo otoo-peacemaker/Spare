@@ -89,11 +89,6 @@
             android:label="My Wallet"
             tools:layout="@layout/fragment_wallet" />
         <fragment
-            android:id="@+id/navigation_transfer"
-            android:name="com.peacemaker.android.spare.ui.main.transfer.TransferFragment"
-            android:label="Send"
-            tools:layout="@layout/fragment_transfer" />
-        <fragment
             android:id="@+id/navigation_chat"
             android:name="com.peacemaker.android.spare.ui.main.chat.ChatFragment"
             android:label="Chat"
@@ -102,7 +97,12 @@
             android:id="@+id/navigation_profile"
             android:name="com.peacemaker.android.spare.ui.main.profile.ProfileFragment"
             android:label="Profile"
-            tools:layout="@layout/fragment_profile" />
+            tools:layout="@layout/fragment_profile" >
+            <action
+                android:id="@+id/action_navigation_profile_to_navigation_home"
+                app:destination="@id/navigation_home"
+                app:popUpTo="@id/navigation_home" />
+        </fragment>
         <action
             android:id="@+id/action_global_sendFragment"
             app:destination="@id/sendFragment" />
@@ -130,7 +130,11 @@
         android:id="@+id/sendFragment"
         android:name="com.peacemaker.android.spare.ui.main.send.SendFragment"
         android:label="Send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_send" >
+        <action
+            android:id="@+id/action_sendFragment_to_transferFragment"
+            app:destination="@id/transferFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addMoneyWithCardFragment"
         android:name="com.peacemaker.android.spare.ui.main.bank.money.AddMoneyWithCardFragment"
@@ -163,4 +167,13 @@
         android:name="com.peacemaker.android.spare.ui.main.bank.bills.BillsAndServicesFragment"
         android:label="Bills and services"
         tools:layout="@layout/fragment_bills_and_services" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.peacemaker.android.spare.ui.main.transfer.TransferFragment"
+        android:label="Transfer"
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transferFragment_to_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </fragment>
 </navigation>

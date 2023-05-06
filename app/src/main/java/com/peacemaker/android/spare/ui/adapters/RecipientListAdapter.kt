@@ -5,7 +5,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.peacemaker.android.spare.databinding.RecentRecipientProfileBinding
 import com.peacemaker.android.spare.ui.util.GenericRecyclerAdapter
 
-class RecipientListAdapter(
+class RecentRecipientProfileAdapter(
     items: List<String>,
     onClickListener: ((String) -> Unit)? = null) : GenericRecyclerAdapter<String, RecentRecipientProfileBinding>(items = items,
     bindingInflater = { inflater, parent, attachToParent ->

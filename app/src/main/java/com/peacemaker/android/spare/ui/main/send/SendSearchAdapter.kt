@@ -6,19 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.peacemaker.android.spare.data.User
 import com.peacemaker.android.spare.databinding.SendRecipientListBinding
-import com.peacemaker.android.spare.model.RecentProfile
 
-class SendSearchAdapter(private var items: ArrayList<RecentProfile>) :
+class SendSearchAdapter(private var items: ArrayList<User>, private val onClickListener:(User)->Unit) :
     RecyclerView.Adapter<SendSearchAdapter.ViewHolder>() {
 
-    private var filteredItems: MutableList<RecentProfile> = items
+    private var filteredItems: MutableList<User> = items
 
     inner class ViewHolder(private val binding: SendRecipientListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: RecentProfile) {
+        fun bind(item: User) {
             // Bind the item to the UI elements in the ViewHolder
-            binding.username.text = item.first_name
-            val imageUrl = item.profile_image_url
+            binding.username.text = item.name
+            val imageUrl = item.profileImage
             Glide.with(binding.root)
                 .load(imageUrl)
                 .transform(CenterCrop())
@@ -35,6 +35,9 @@ class SendSearchAdapter(private var items: ArrayList<RecentProfile>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filteredItems[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            onClickListener.invoke(item)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,8 +46,7 @@ class SendSearchAdapter(private var items: ArrayList<RecentProfile>) :
 
     @SuppressLint("NotifyDataSetChanged")
     fun filter(query: String) {
-        filteredItems = items.filter {
-            it.first_name.contains(query, ignoreCase = true) } as MutableList<RecentProfile>
+        filteredItems = items.filter { it.name?.contains(query, ignoreCase = true) == true }.toMutableList()
         notifyDataSetChanged()
     }
 }

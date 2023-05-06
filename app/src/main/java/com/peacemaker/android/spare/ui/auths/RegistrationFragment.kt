@@ -102,8 +102,7 @@ class RegistrationFragment : BaseFragment() {
                 showSnackBar(requireView(),it) }){
                 if (validateString(firstname) and validateString(lastName) and validateString(email) and validateString(password)){
                     viewModel.createUser(
-                        firstName = firstname,
-                        lastName= lastName,
+                    username=  firstname.plus(" ").plus(lastName),
                         email = email,
                         phone = phone,
                         password = password)

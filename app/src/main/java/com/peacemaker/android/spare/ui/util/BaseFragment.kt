@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -34,6 +36,10 @@ import com.google.gson.Gson
 import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
 import org.json.JSONArray
+import java.security.MessageDigest
+import java.security.SecureRandom
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class BaseFragment: Fragment() {
     lateinit var navController: NavController
@@ -76,10 +82,10 @@ open class BaseFragment: Fragment() {
             return false
         }
         // Check if password meets criteria
-        val passwordRegex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
-        if (!password.matches(passwordRegex)) {
-            message.invoke("Please enter a strong password with at least one lowercase letter,\n" +
-                    "one uppercase letter, one number, and is at least 8 characters long")
+        //val passwordRegex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+        val regex = Regex("^(?=.*\\d)(?=.*[!@#\$%^&*(),.?\":{}|<>])[a-zA-Z0-9!@#\$%^&*(),.?\":{}|<>]{8}$")
+        if (!password.matches(regex)) {
+            message.invoke("Please enter a strong password ")
             return false
         }
         // If both email and password are valid, return true
@@ -243,6 +249,49 @@ open class BaseFragment: Fragment() {
         }
         return list
     }
+
+    fun generateSalt(): String {
+        val secureRandom = SecureRandom()
+        val salt = ByteArray(16)
+        secureRandom.nextBytes(salt)
+        return Base64.encodeToString(salt, Base64.DEFAULT)
+    }
+
+    fun hashPassword(password: String, salt: String, pepper: String): String {
+        val message = salt + password + pepper
+        val messageBytes = message.toByteArray(Charsets.UTF_8)
+        val digest = MessageDigest.getInstance("SHA-256")
+        val hashBytes = digest.digest(messageBytes)
+        return Base64.encodeToString(hashBytes, Base64.DEFAULT)
+    }
+
+    fun verifyPasswordWithSalt(password: String, hashedPassword: String): Boolean {
+        val parts = hashedPassword.split(":")
+        if (parts.size != 2) {
+            return false
+        }
+        val salt = parts[1]
+        val passwordWithSalt = password + salt
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        val digest = messageDigest.digest(passwordWithSalt.toByteArray())
+        val hashedPasswordWithSalt = Base64.encodeToString(digest, Base64.DEFAULT) + ":" + salt
+        return hashedPasswordWithSalt == hashedPassword
+    }
+
+    fun log(tag: String, message: String) {
+        Log.d(tag, message)
+    }
+
+    fun getCurrentMonthYear(): String {
+        val currentDate = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+        return dateFormat.format(currentDate)
+    }
+    fun <T> filterListBySubstring(list: List<T>, substring: String): List<T> {
+        return list.filter { it.toString().contains(substring) }
+    }
+
+
 
 
 

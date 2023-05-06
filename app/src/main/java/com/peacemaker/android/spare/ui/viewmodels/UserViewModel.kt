@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.google.firebase.storage.FirebaseStorage
+import com.peacemaker.android.spare.data.User
 import com.peacemaker.android.spare.data.repository.AuthRepository
 import com.peacemaker.android.spare.data.repository.FireStoreRepository
-import com.peacemaker.android.spare.model.SpareUser
 
 class UserViewModel(private val authRepository: AuthRepository, private val fireStoreRepository: FireStoreRepository):ViewModel() {
     private val storageRef = FirebaseStorage.getInstance().reference
@@ -32,10 +32,10 @@ class UserViewModel(private val authRepository: AuthRepository, private val fire
         authRepository.getCurrentUser()?.let { user ->
             fireStoreRepository.getUserProfileByUserId(user.uid)
                 .addOnSuccessListener { documentSnapshot ->
-                    val spareUserProfile = documentSnapshot.toObject(SpareUser::class.java)
+                    val spareUserProfile = documentSnapshot.toObject(User::class.java)
                     spareUserProfile?.let {
-                        _profilePictureUri.postValue(Uri.parse(spareUserProfile.profilePictureUrl))
-                        _name.postValue(spareUserProfile.firstName?.plus(" ")?.plus(spareUserProfile.lastName))
+                        _profilePictureUri.postValue(Uri.parse(spareUserProfile.profileImage))
+                        _name.postValue(spareUserProfile.name)
                     }
                 }.addOnFailureListener {
                     // Failed to retrieve user profile
@@ -114,14 +114,14 @@ class UserViewModel(private val authRepository: AuthRepository, private val fire
     }
 
 
-    fun getAllUsers(): LiveData<List<SpareUser>> {
-        val usersLiveData = MutableLiveData<List<SpareUser>>()
+    fun getAllUsers(): LiveData<List<User>> {
+        val usersLiveData = MutableLiveData<List<User>>()
         fireStoreRepository.getUsersCollection()
             .get()
             .addOnSuccessListener { querySnapshot ->
-                val spareUsers = ArrayList<SpareUser>()
+                val spareUsers = ArrayList<User>()
                 for (documentSnapshot in querySnapshot.documents) {
-                    val spareUser = documentSnapshot.toObject(SpareUser::class.java)
+                    val spareUser = documentSnapshot.toObject(User::class.java)
                     spareUser?.let { spareUsers.add(it) }
                 }
                 usersLiveData.value = spareUsers

@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -72,12 +71,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeL" />
 
-    <TextView
+    <EditText
         android:id="@+id/transferAmt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/_0000"
+        android:autofillHints="0000"
+        android:background="@null"
+        android:hint="@string/_0000"
+        android:inputType="number"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -150,7 +152,7 @@
         style="@style/MaterialButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:text="@string/send"
         android:textAllCaps="false"
         android:textSize="16sp"

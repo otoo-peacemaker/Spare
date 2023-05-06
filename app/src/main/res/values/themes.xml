@@ -33,6 +33,8 @@
         <item name="textInputStyle">@style/CustomTextInputLayoutStyle</item>
         <item name="actionButtonStyle">@style/MaterialButtonStyle</item>
         <item name="floatingActionButtonStyle">@style/ExtendedFloatingActionButtonStyle</item>
+        <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
+
     </style>
 
 
