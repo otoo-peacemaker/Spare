@@ -16,8 +16,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.peacemaker.android.spare.data.User
-
+import com.peacemaker.android.spare.model.SpareUser
 import com.peacemaker.android.spare.ui.util.Constants.RC_SIGN_IN
 import com.peacemaker.android.spare.ui.util.Resource
 
@@ -31,7 +30,7 @@ class AuthViewModel : ViewModel() {
     private val _signInLiveData = MutableLiveData<Resource<FirebaseUser>>()
     val signInLiveData: LiveData<Resource<FirebaseUser>> = _signInLiveData
 
-    fun createUser(username:String, email: String, phone: String, password: String) {
+    fun createUser(firstName: String, lastName: String, email: String, phone: String, password: String) {
         _createUserLiveData.value = Resource.loading(null)
         try {
             auth.createUserWithEmailAndPassword(email, password)
@@ -43,15 +42,17 @@ class AuthViewModel : ViewModel() {
                         val db = Firebase.firestore
 
                         // Save additional user information in the Fire store database
-                        val spareUser = User(id = userId!!, name = username, email=email, phoneNumber =phone, password = password, profileImage = "")
-                        db.collection("users").document(userId).set(spareUser)
-                            .addOnSuccessListener {
-                                _createUserLiveData.value = Resource.success(firebaseUser)
-                            }
-                            .addOnFailureListener { e ->
-                                _createUserLiveData.value =
-                                    e.localizedMessage?.let { Resource.error(firebaseUser, it) }
-                            }
+                        val spareUser = SpareUser(firstName=firstName, lastName=lastName, email=email, phone=phone, password = password)
+                        if (userId != null) {
+                            db.collection("users").document(userId).set(spareUser)
+                                .addOnSuccessListener {
+                                    _createUserLiveData.value = Resource.success(firebaseUser)
+                                }
+                                .addOnFailureListener { e ->
+                                    _createUserLiveData.value =
+                                        e.localizedMessage?.let { Resource.error(firebaseUser, it) }
+                                }
+                        }
                     } else {
                         // Handle error
                         _createUserLiveData.value =

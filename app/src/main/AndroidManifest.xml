@@ -14,7 +14,8 @@
         android:icon="@mipmap/ic_spare_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Spare.Light"
+        android:windowSoftInputMode="adjustResize"
+        android:theme="@style/Theme.Spare"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

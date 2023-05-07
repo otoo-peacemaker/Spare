@@ -1,6 +1,6 @@
-<resources>
+<resources xmlns:ns1="http://schemas.android.com/apk/res-auto">
     <!-- Base application theme. -->
-    <style name="Theme.Spare.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Spare" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
@@ -33,8 +33,6 @@
         <item name="textInputStyle">@style/CustomTextInputLayoutStyle</item>
         <item name="actionButtonStyle">@style/MaterialButtonStyle</item>
         <item name="floatingActionButtonStyle">@style/ExtendedFloatingActionButtonStyle</item>
-        <item name="toolbarStyle">@style/AppTheme.Toolbar</item>
-
     </style>
 
 
