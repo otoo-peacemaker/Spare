@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.peacemaker.android.spare.data.items
@@ -20,50 +21,32 @@ class WalletFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         _binding = FragmentWalletBinding.inflate(inflater, container, false)
         binding.apply {
             val cards = listOf(
-                CreditCard("Visa", "1234 5678 9012 3456", "Kaska Doe", "12/23"),
-                CreditCard("Mastercard", "2345 6789 0123 4567", "Jane Doe", "01/25"),
-                CreditCard("Mastercard", "3456 7890 1234 5678", "Bob Smith", "06/22"),
+                CreditCard("Visa","1234 5678 9012 3456", "Kaska Doe", "12/23"),
+                CreditCard("Mastercard","2345 6789 0123 4567", "Jane Doe", "01/25"),
+                CreditCard("Mastercard","3456 7890 1234 5678", "Bob Smith", "06/22")
             )
-            cards.forEach { card ->
-                when (card.cardType) {
-                    "Visa" -> {}
-                    "Mastercard" -> {}
-                    "Visa" -> {}
-                }
-
-            }
-            val cardAdapter = CreditCardAdapter(cards)
-            viewPager.adapter = cardAdapter
-            viewPager.offscreenPageLimit = 3
-            dotsIndicator.attachTo(viewPager)
+           /* val cardAdapter = CardAdapter(cards)
+            viewPager.adapter = cardAdapter*/
 
 
-            val autoCompleteTextView = autoCompleteTextView
-            val dataSpinner = listOf("Week", "Days", "Month", "Year")
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, dataSpinner)
+            val autoCompleteTextView =autoCompleteTextView
+            val dataSpinner = listOf("Week","Days","Month","Year")
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, dataSpinner)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             autoCompleteTextView.adapter = adapter
-            autoCompleteTextView.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>,
-                        view: View?,
-                        position: Int,
-                        id: Long
-                    ) {
-                        val selectedItem = parent.getItemAtPosition(position).toString()
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>) {
-                        // do nothing
-                    }
+            autoCompleteTextView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    val selectedItem = parent.getItemAtPosition(position).toString()
+                    Toast.makeText(requireContext(), "Selected item: $selectedItem", Toast.LENGTH_SHORT).show()
                 }
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // do nothing
+                }
+            }
         }
         return binding.root
     }

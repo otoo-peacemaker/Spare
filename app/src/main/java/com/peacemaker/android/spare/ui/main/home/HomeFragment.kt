@@ -1,5 +1,7 @@
 package com.peacemaker.android.spare.ui.main.home
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,6 +27,9 @@ import com.peacemaker.android.spare.data.repository.FireStoreRepository
 import com.peacemaker.android.spare.databinding.FragmentHomeBinding
 import com.peacemaker.android.spare.ui.util.BaseFragment
 import com.peacemaker.android.spare.ui.viewmodels.UserViewModel
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.time.LocalTime
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -125,12 +130,19 @@ class HomeFragment : BaseFragment() {
                 }
             }
         }
-
-        mainBinding.profileImg.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_navigation_profile)
-        }
     }
 
+    private fun getBitmapFromUri(uri: String): Bitmap? {
+        if (uri.isNotBlank()){
+            val url = URL(uri)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            return BitmapFactory.decodeStream(input)
+        }
+        return null
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

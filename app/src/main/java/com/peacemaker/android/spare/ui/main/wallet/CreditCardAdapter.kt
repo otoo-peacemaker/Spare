@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.github.islamkhsh.CardSliderAdapter
 import com.peacemaker.android.spare.R
 
 class CreditCardAdapter(private val cards: List<CreditCard>) : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
@@ -31,5 +32,32 @@ class CreditCardAdapter(private val cards: List<CreditCard>) : RecyclerView.Adap
 
     override fun getItemCount(): Int {
         return cards.size
+    }
+}
+
+
+class CardAdapter(private val cards : List<CreditCard>) : CardSliderAdapter<CardAdapter.MovieViewHolder>() {
+
+    override fun getItemCount() = cards.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.credit_card_layout, parent, false)
+        return MovieViewHolder(view)
+    }
+
+    override fun bindVH(holder: MovieViewHolder, position: Int) {
+        //TODO bind item object with item layout view
+        val card = cards[position]
+        holder.cardType.text = card.cardType
+        holder.cardNumber.text = card.cardNumber
+        holder.cardHolderName.text = card.cardHolderName
+        holder.cardExpiryDate.text = card.cardExpiryDate
+    }
+
+    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val cardType:TextView = itemView.findViewById(R.id.type)
+        val cardNumber: TextView = itemView.findViewById(R.id.cardNumber)
+        val cardHolderName: TextView = itemView.findViewById(R.id.holderName)
+        val cardExpiryDate: TextView = itemView.findViewById(R.id.expiryDate)
     }
 }
