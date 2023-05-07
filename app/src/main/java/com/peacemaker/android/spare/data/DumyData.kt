@@ -46,4 +46,10 @@ val items = listOf(
     Item(1000.00,"Deposit","$2000","may 10",""),
     Item(2000.00,"Send","$66000","may 10","2"),
 
+    Transaction(null,"Jan 2023"),
+    Item(1000.00,"Deposit","$2000","may 10",""),
+    Item(2000.00,"Send","$66000","may 10","2"),
+    Item(1000.00,"Deposit","$2000","may 10",""),
+    Item(2000.00,"Send","$66000","may 10","2"),
+
     )

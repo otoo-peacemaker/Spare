@@ -1,7 +1,6 @@
 package com.peacemaker.android.spare
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -27,8 +26,10 @@ class MainActivity : AppCompatActivity() {
 
      lateinit var binding: ActivityMainBinding
      lateinit var navController: NavController
+     private lateinit var appBarConfiguration:AppBarConfiguration
 
-    private val barMenuItems = setOf(R.id.navigation_home, R.id.splashScreenFragment,R.id.landingPageFragment)//disable nav back arrows
+    private val barMenuItems = setOf(R.id.navigation_home, R.id.splashScreenFragment,
+        R.id.landingPageFragment)//disable nav back arrows
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,24 +62,34 @@ class MainActivity : AppCompatActivity() {
         drawerLayoutId: Int?=null,
         appBarConfig : Set<Int>, ) {
         val drawerLayout : DrawerLayout? = drawerLayoutId?.let { findViewById(it) }
-        val appBarConfiguration = AppBarConfiguration(appBarConfig,drawerLayout)
+        appBarConfiguration = AppBarConfiguration(appBarConfig, drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
+   /* override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
+        return true
+    }*/
 
 
     //Using NavigationUI with an Options menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment_activity_main)) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(
+            findNavController(R.id.nav_host_fragment_activity_main)) ||
+                super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val appBarConfiguration = AppBarConfiguration(barMenuItems)
-        return findNavController(R.id.nav_host_fragment_activity_main).navigateUp(appBarConfiguration)
+        return findNavController(R.id.nav_host_fragment_activity_main)
+            .navigateUp(appBarConfiguration)
     }
 
      fun onBackPress(){
         val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { binding.navView.visibility = View.GONE }
+            override fun handleOnBackPressed() {
+                binding.navView.visibility = View.GONE
+            }
         }
         this.onBackPressedDispatcher.addCallback(this, callback)
     }
@@ -103,10 +114,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun showVisibilityForBottomNav(visibility: Boolean){
         if (visibility){
-            binding.coordinatorLayout.visibility = View.VISIBLE
+            binding.bottomAppBar.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
         }else{
-            binding.coordinatorLayout.visibility = View.GONE
+            binding.bottomAppBar.visibility = View.GONE
+            binding.fab.visibility = View.GONE
         }
+        recreate()
     }
 
     private fun onApplyWindowInsetsListenerOnBottomNav(){
@@ -139,7 +153,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         payBills.setOnClickListener {
-
+            navController.navigate(R.id.action_global_billsAndServicesFragment)
+            dialog.cancel()
         }
 
         dialog.setContentView(binding.root)
@@ -153,11 +168,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun addOnDestinationChangedListener(navController: NavController){
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showBottomNavOnIDs = listOf(R.id.navigation_home,R.id.navigation_wallet,R.id.navigation_chat, R.id.navigation_profile, R.id.addMoneyFragment)
-            if (destination.id in showBottomNavOnIDs) {
+            //changing the navigation up icon
+            val isTopLevelDestination = appBarConfiguration.topLevelDestinations.contains(destination.id)
+            binding.toolbar.setNavigationIcon(
+                if(isTopLevelDestination) R.drawable.navigate_up else R.drawable.navigate_up
+            )
+
+            val showBottomNavigationViewOnIDs = listOf(
+                R.id.navigation_home, R.id.navigation_wallet,
+                R.id.navigation_chat, R.id.navigation_profile,
+                R.id.addMoneyFragment, R.id.billsAndServicesFragment)
+            if (destination.id in showBottomNavigationViewOnIDs) {
                 showVisibilityForBottomNav(true)
                 if (destination.id == R.id.navigation_home){
-                    Log.d("Main","Home Fragment")
                     binding.customToolbar.visibility = View.VISIBLE
                 }else {
                     binding.customToolbar.visibility = View.GONE
@@ -168,6 +191,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

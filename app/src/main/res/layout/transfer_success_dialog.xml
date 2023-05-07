@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="20dp"
     android:layout_width="match_parent"
+    android:layout_height="437dp"
     android:layout_margin="10dp"
-    android:layout_height="437dp">
+    app:cardCornerRadius="20dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/amtSent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -49,15 +50,14 @@
             </androidx.cardview.widget.CardView>
 
 
-
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cdtCardDigitL"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
             android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="@+id/textView16"
             app:layout_constraintStart_toStartOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/textView16">
@@ -77,10 +77,10 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/username"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@+id/relativeL"
             app:layout_constraintStart_toStartOf="@+id/relativeL"
             app:layout_constraintTop_toBottomOf="@+id/relativeL" />
@@ -99,8 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:textColor="@color/black"
             android:text="Enjoy yourself at the movies darling"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider5" />
@@ -113,9 +113,9 @@
             android:layout_marginTop="12dp"
             android:drawablePadding="10dp"
             android:text="@string/download_receipt"
+            android:textColor="@color/md_theme_light_primary"
             app:drawableStartCompat="@drawable/ico_download"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/md_theme_light_primary"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <TextView
@@ -145,21 +145,21 @@
             app:layout_constraintTop_toBottomOf="@+id/share" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUp"
+            android:id="@+id/sendMore"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:text="@string/send_more"
             android:textAllCaps="false"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/md_theme_light_primary"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/login"
             app:layout_constraintStart_toStartOf="@+id/login"
-            app:layout_constraintTop_toBottomOf="@+id/login" />
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            app:strokeColor="@color/md_theme_light_primary"
+            app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

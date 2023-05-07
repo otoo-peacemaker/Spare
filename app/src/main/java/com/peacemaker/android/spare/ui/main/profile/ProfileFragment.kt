@@ -50,8 +50,8 @@ class ProfileFragment : BaseFragment() {
             Glide.with(this)
                 .load(uri)
                 .apply(RequestOptions()
-                    .placeholder(R.drawable.profile)
-                    .error(R.drawable.profile))
+                    .placeholder(R.drawable.ico_acc_info)
+                    .error(R.drawable.ico_acc_info))
                 .into(binding.profileImg)
         }
         viewModel.name.observe(viewLifecycleOwner) { name ->
