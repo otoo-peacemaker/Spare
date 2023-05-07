@@ -91,72 +91,73 @@
 
     <include
         android:id="@+id/accInfo"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/cdtCardDigitL"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/cdtCardDigitL"
+        tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/accVerification"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/accInfo"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/invitation"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/accVerification"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/bankCards"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/invitation"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/privacy"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/bankCards"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/helpAndSupport"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/privacy"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/aboutUs"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/helpAndSupport"
         tools:layout_editor_absoluteX="20dp" />
 
     <include
         android:id="@+id/signOut"
-        layout="@layout/profile_list_items"
+        layout="@layout/send_recipient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs"
         tools:layout_editor_absoluteX="20dp" />
 
@@ -164,7 +165,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/accInfo"
         tools:layout_editor_absoluteX="1dp" />
@@ -173,7 +174,7 @@
         android:id="@+id/divider3"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/accVerification"
         tools:layout_editor_absoluteX="1dp" />
@@ -182,7 +183,7 @@
         android:id="@+id/divider4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/invitation"
         tools:layout_editor_absoluteX="1dp" />
@@ -191,7 +192,7 @@
         android:id="@+id/divider6"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="9dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/bankCards"
         tools:layout_editor_absoluteX="1dp" />
@@ -200,7 +201,7 @@
         android:id="@+id/divider7"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="9dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/privacy"
         tools:layout_editor_absoluteX="1dp" />
@@ -209,7 +210,7 @@
         android:id="@+id/divider8"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/aboutUs"
         tools:layout_editor_absoluteX="1dp" />
@@ -218,7 +219,7 @@
         android:id="@+id/divider9"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/helpAndSupport"
         tools:layout_editor_absoluteX="1dp" />
@@ -227,7 +228,7 @@
         android:id="@+id/divider10"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@+id/signOut"
         tools:layout_editor_absoluteX="1dp" />

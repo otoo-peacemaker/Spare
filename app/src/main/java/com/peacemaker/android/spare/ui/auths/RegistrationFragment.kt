@@ -24,10 +24,12 @@ class RegistrationFragment : BaseFragment() {
     private val fireStoreRepository by lazy { FireStoreRepository() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +38,7 @@ class RegistrationFragment : BaseFragment() {
         binding.register.setOnClickListener { registerUser() }
         binding.alreadyHaveAcc.setOnClickListener { findNavController().navigate(R.id.action_registrationFragment_to_loginFragment) }
         binding.continueWithGoogle.setOnClickListener { signInWithGoogle() }
+
         viewModel.createUserLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource?.status) {
                 Status.SUCCESS -> {
@@ -102,10 +105,12 @@ class RegistrationFragment : BaseFragment() {
                 showSnackBar(requireView(),it) }){
                 if (validateString(firstname) and validateString(lastName) and validateString(email) and validateString(password)){
                     viewModel.createUser(
-                    username=  firstname.plus(" ").plus(lastName),
+                        firstName = firstname,
+                        lastName,
                         email = email,
                         phone = phone,
-                        password = password)
+                        password = password
+                    )
                 }else{
                     showSnackBar(requireView(),"Field can not be empty or must greater than 3")
                 }

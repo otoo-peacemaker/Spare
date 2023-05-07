@@ -4,25 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.peacemaker.android.spare.data.User
 import com.peacemaker.android.spare.databinding.SendRecipientListBinding
 
-class SendSearchAdapter(private var items: ArrayList<User>, private val onClickListener:(User)->Unit) :
+class SendSearchAdapter(private var items: List<String>) :
     RecyclerView.Adapter<SendSearchAdapter.ViewHolder>() {
 
-    private var filteredItems: MutableList<User> = items
+    private var filteredItems: List<String> = items
 
     inner class ViewHolder(private val binding: SendRecipientListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: User) {
+        fun bind(item: String) {
             // Bind the item to the UI elements in the ViewHolder
-            binding.username.text = item.name
-            val imageUrl = item.profileImage
-            Glide.with(binding.root)
-                .load(imageUrl)
-                .transform(CenterCrop())
-                .into(binding.profileImg)
+            binding.username.text = item
         }
     }
 
@@ -35,9 +27,6 @@ class SendSearchAdapter(private var items: ArrayList<User>, private val onClickL
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filteredItems[position]
         holder.bind(item)
-        holder.itemView.setOnClickListener {
-            onClickListener.invoke(item)
-        }
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +35,7 @@ class SendSearchAdapter(private var items: ArrayList<User>, private val onClickL
 
     @SuppressLint("NotifyDataSetChanged")
     fun filter(query: String) {
-        filteredItems = items.filter { it.name?.contains(query, ignoreCase = true) == true }.toMutableList()
+        filteredItems = items.filter { it.contains(query, ignoreCase = true) }
         notifyDataSetChanged()
     }
 }
