@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.peacemaker.android.spare.ui.onboarding.SplashScreenFragment"
+        android:label=""
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_landingPageFragment"
+            app:destination="@id/landingPageFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/landingPageFragment"
+        android:name="com.peacemaker.android.spare.ui.onboarding.LandingPageFragment"
+        android:label=""
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landingPageFragment_to_authentication_nav_graph"
+            app:destination="@id/authentication_nav_graph" />
+        <action
+            android:id="@+id/action_landingPageFragment_to_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/authentication_nav_graph"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.LoginFragment"
+            android:label=""
+            tools:layout="@layout/fragment_login" >
+            <action
+                android:id="@+id/action_loginFragment_to_registrationFragment"
+                app:destination="@id/registrationFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_bottomNavGraph"
+                app:destination="@id/bottom_nav_graph" />
+
+        </fragment>
+        <fragment
+            android:id="@+id/registrationFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.RegistrationFragment"
+            android:label=""
+            tools:layout="@layout/fragment_registration" >
+            <action
+                android:id="@+id/action_registrationFragment_to_verifyAccountFragment"
+                app:destination="@id/verifyAccountFragment" />
+            <action
+                android:id="@+id/action_registrationFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
+
+            <action
+                android:id="@+id/action_registrationFragment_to_bottomNavGraph"
+                app:destination="@id/bottom_nav_graph" />
+        </fragment>
+        <fragment
+            android:id="@+id/verifyAccountFragment"
+            android:name="com.peacemaker.android.spare.ui.auths.VerifyAccountFragment"
+            android:label=""
+            tools:layout="@layout/fragment_verify_account" />
+        <action
+            android:id="@+id/action_global_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </navigation>
+
+    <navigation
+        android:id="@+id/bottom_nav_graph"
+        app:startDestination="@id/navigation_home">
+        <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.peacemaker.android.spare.ui.main.home.HomeFragment"
+            android:label=""
+            tools:layout="@layout/fragment_home" >
+            <action
+                android:id="@+id/action_navigation_home_to_addMoneyFragment"
+                app:destination="@id/addMoneyFragment" />
+            <action
+                android:id="@+id/action_navigation_home_to_navigation_profile"
+                app:destination="@id/navigation_profile" />
+        </fragment>
+        <fragment
+            android:id="@+id/navigation_wallet"
+            android:name="com.peacemaker.android.spare.ui.main.wallet.WalletFragment"
+            android:label="My Wallet"
+            tools:layout="@layout/fragment_wallet" />
+        <fragment
+            android:id="@+id/navigation_chat"
+            android:name="com.peacemaker.android.spare.ui.main.chat.ChatFragment"
+            android:label="Chat"
+            tools:layout="@layout/fragment_chat" />
+        <fragment
+            android:id="@+id/navigation_profile"
+            android:name="com.peacemaker.android.spare.ui.main.profile.ProfileFragment"
+            android:label="Profile"
+            tools:layout="@layout/fragment_profile" >
+            <action
+                android:id="@+id/action_navigation_profile_to_navigation_home"
+                app:destination="@id/navigation_home"
+                app:popUpTo="@id/navigation_home" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_sendFragment"
+            app:destination="@id/sendFragment" />
+
+        <action
+            android:id="@+id/navigation_profile_auth_navigation"
+            app:destination="@id/authentication_nav_graph" />
+        <fragment
+            android:id="@+id/addMoneyFragment"
+            android:name="com.peacemaker.android.spare.ui.main.bank.money.AddMoneyFragment"
+            android:label="Add money"
+            tools:layout="@layout/fragment_add_money" >
+            <action
+                android:id="@+id/action_addMoneyFragment_to_navigation_home"
+                app:popUpTo="@id/navigation_home" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_cardsFragment"
+            app:destination="@id/cardsFragment" />
+        <action
+            android:id="@+id/action_global_billsAndServicesFragment"
+            app:destination="@id/billsAndServicesFragment" />
+        <action
+            android:id="@+id/action_global_authentication_nav_graph"
+            app:destination="@id/authentication_nav_graph" />
+
+    </navigation>
+    <fragment
+        android:id="@+id/sendFragment"
+        android:name="com.peacemaker.android.spare.ui.main.send.SendFragment"
+        android:label="Send"
+        tools:layout="@layout/fragment_send" >
+        <action
+            android:id="@+id/action_sendFragment_to_transferFragment"
+            app:destination="@id/transferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMoneyWithCardFragment"
+        android:name="com.peacemaker.android.spare.ui.main.bank.money.AddMoneyWithCardFragment"
+        android:label="Add money with card"
+        tools:layout="@layout/fragment_add_money_with_card" >
+        <action
+            android:id="@+id/action_addMoneyWithCardFragment_to_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.peacemaker.android.spare.ui.main.bank.cards.CardsFragment"
+        android:label="Cards"
+        tools:layout="@layout/fragment_cards" >
+        <action
+            android:id="@+id/action_cardsFragment_to_addNewCardFragment"
+            app:destination="@id/addNewCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewCardFragment"
+        android:name="com.peacemaker.android.spare.ui.main.bank.cards.AddNewCardFragment"
+        android:label="Add new card"
+        tools:layout="@layout/fragment_add_new_card" >
+        <action
+            android:id="@+id/action_addNewCardFragment_to_addMoneyWithCardFragment"
+            app:destination="@id/addMoneyWithCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billsAndServicesFragment"
+        android:name="com.peacemaker.android.spare.ui.main.bank.bills.BillsAndServicesFragment"
+        android:label="Bills and services"
+        tools:layout="@layout/fragment_bills_and_services" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.peacemaker.android.spare.ui.main.transfer.TransferFragment"
+        android:label="Transfer"
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transferFragment_to_bottom_nav_graph"
+            app:destination="@id/bottom_nav_graph" />
+    </fragment>
+</navigation>

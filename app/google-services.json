@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "479318981358",
+    "project_id": "spare-d84a4",
+    "storage_bucket": "spare-d84a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479318981358:android:00f8e9ce55c07f4853d1ff",
+        "android_client_info": {
+          "package_name": "com.peacemaker.android.spare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479318981358-3t67nngdjf4fnmhbkcraa9eq3c6ghg10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbyKuxKMO_BtE4vtdy1XuK4t-7SSgJ-cU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479318981358-3t67nngdjf4fnmhbkcraa9eq3c6ghg10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
