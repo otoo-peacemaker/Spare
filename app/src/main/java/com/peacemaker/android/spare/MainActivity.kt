@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.FirebaseApp
 import com.peacemaker.android.spare.databinding.ActivityMainBinding
 import com.peacemaker.android.spare.databinding.SendModalSheetBinding
+import com.peacemaker.android.spare.ui.onboarding.LandingPageFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,16 +29,18 @@ class MainActivity : AppCompatActivity() {
      lateinit var navController: NavController
      private lateinit var appBarConfiguration:AppBarConfiguration
 
+    private var backPressedInFragment = false
+
     private val barMenuItems = setOf(R.id.navigation_home, R.id.splashScreenFragment,
         R.id.landingPageFragment)//disable nav back arrows
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FirebaseApp.initializeApp(this)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
+        FirebaseApp.initializeApp(this)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
          navController = navHostFragment.navController
         setupBottomNavMenu(navController)
@@ -191,4 +194,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+        if (currentFragment is LandingPageFragment && !backPressedInFragment) {
+            currentFragment.showConfirmationDialog()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
 }

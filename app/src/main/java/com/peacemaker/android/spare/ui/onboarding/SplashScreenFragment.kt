@@ -34,15 +34,16 @@ class SplashScreenFragment : BaseFragment() {
         activity?.window?.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        showActionBarOnFragment(this,false)
+        Handler(Looper.getMainLooper()).postDelayed({
+            findNavController().navigate(R.id.action_splashScreenFragment_to_landingPageFragment2)
+        }, 3000)
         return inflater.inflate(R.layout.fragment_splash_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showActionBarOnFragment(this,false)
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashScreenFragment_to_landingPageFragment)
-        }, 3000)
+
     }
 
     override fun onDestroyView() {

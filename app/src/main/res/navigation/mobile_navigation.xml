@@ -12,11 +12,14 @@
         android:label=""
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_landingPageFragment"
-            app:destination="@id/landingPageFragment" />
-        <action
             android:id="@+id/action_splashScreenFragment_to_bottom_nav_graph"
             app:destination="@id/bottom_nav_graph" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_authentication_nav_graph"
+            app:destination="@id/authentication_nav_graph" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_landingPageFragment2"
+            app:destination="@id/landingPageFragment" />
     </fragment>
 
     <fragment
@@ -30,6 +33,10 @@
         <action
             android:id="@+id/action_landingPageFragment_to_bottom_nav_graph"
             app:destination="@id/bottom_nav_graph" />
+        <action
+            android:id="@+id/action_landingPageFragment_self"
+            app:destination="@id/landingPageFragment"
+            app:popUpTo="@id/landingPageFragment" />
     </fragment>
 
     <navigation

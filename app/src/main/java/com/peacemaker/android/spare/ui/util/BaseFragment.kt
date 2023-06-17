@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
@@ -32,6 +33,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseApp
 import com.google.gson.Gson
 import com.peacemaker.android.spare.MainActivity
 import com.peacemaker.android.spare.R
@@ -43,6 +45,14 @@ import java.util.*
 
 open class BaseFragment: Fragment() {
     private lateinit var navController: NavController
+    private lateinit var backPressedCallback: OnBackPressedCallback
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(requireContext())
+        log("BaseFragment","::::::::::::::::::::::::::::FirebaseApp.initializeApp")
+    }
+
     override fun onStart() {
         super.onStart()
        /* val actionBar = (activity as AppCompatActivity).supportActionBar
@@ -290,5 +300,48 @@ open class BaseFragment: Fragment() {
     fun <T> filterListBySubstring(list: List<T>, substring: String): List<T> {
         return list.filter { it.toString().contains(substring) }
     }
+
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Are you sure you want to exit the app?")
+            .setPositiveButton("Yes") { _, _ ->
+                // User confirmed, close the app
+                requireActivity().finish()
+
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
+     fun Fragment.showConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Are you sure you want to exit the app?")
+            .setPositiveButton("Yes") { _, _ ->
+                // User confirmed, close the app
+                requireActivity().finish()
+
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
+
+    fun backPressedCallback(destId:Int){
+        backPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val navController = findNavController()
+                if (navController.currentBackStackEntry?.destination?.id == destId) {
+                    //requireActivity().finish()
+                    showConfirmationDialog()
+                } else {
+                   // navController.popBackStack()
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
+    }
+
+
 
 }
